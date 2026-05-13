@@ -185,7 +185,7 @@
 
             <div class="p-6 lg:p-16">
                 
-                <!-- SECTION 1: CONTEXT -->
+                <!-- 1. STRATEGIC CONTEXT -->
                 <section id="context" class="space-y-12">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">1. Strategic Context: Week 1</h3>
@@ -204,7 +204,7 @@
                     <div class="chart-container glass-card rounded-3xl p-8 shadow-inner mt-8"><canvas id="chart-fin"></canvas></div>
                 </section>
 
-                <!-- SECTION 2: ENGINEERING -->
+                <!-- 2. ENGINEERING & DESIGN -->
                 <section id="engineering" class="hide space-y-16">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">2. Engineering & Design Logs</h3>
@@ -218,7 +218,7 @@
                             <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 shadow-sm">
                                 <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
                                     <video controls muted loop class="w-full h-full object-cover">
-                                        <source src="Bottom%20Case%20screen%20recording.mov" type="video/mp4">
+                                        <source src="Bottom Case screen recording.mov" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -230,7 +230,7 @@
                             <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 shadow-sm">
                                 <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
                                     <video controls muted loop class="w-full h-full object-cover">
-                                        <source src="Top%20case%20screen%20recording.mov" type="video/mp4">
+                                        <source src="Top case screen recording.mov" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -290,7 +290,7 @@
                     <div class="space-y-6 mt-20">
                         <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Bridging Optimization Trial</h4>
                         <div class="prose prose-slate max-w-4xl">
-                            <p>I came to the conclusion that the best sure fire way to reliably manufacture these phone cases with minimal post processing would be to print them lying flat on their back without supports as demonstrated by V2. The issue with V2 was that the bridging was inadequate and as a result I undertook some optimisation tests to identify the ideal bridging settings. I wanted to keep the overhang and bridge speeds constant and have the layer height as my independent variable but first I had to make some adjustments to the overhang speeds to ensure ideal conditions.</p>
+                            <p>I came to the conclusion that the best sure fire way to reliably manufacture these phone cases with minimal post processing would be to print them lying flat on their back without supports as demonstrated by V2. The issue with V2 was that the bridging was inadequate and as a result I undertook some optimisation tests to identify the ideal bridging settings. I wanted to keep the overhang and bridge speeds constant and have the layer height as my independent variable but first I had to make some adjustments to the overhang speeds to ensure ideal conditions. I decreased the overhang speed [50%,75%] from 30mm/s to 20mm/s and the bridge speed to 25mm/s to ensure that the second half of the overhang (which is practically printing over thin air) prints slow enough for the PLA to achieve its glass temperature almost instantly.</p>
                         </div>
                         <div class="flex flex-wrap gap-2">
                             <button onclick="setBridge('b1')" id="bridge-pill-b1" class="bridge-pill active px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">Test 1 (0.08mm)</button>
@@ -335,7 +335,7 @@
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">4. Digital Twin Simulation</h3>
                         <p>Once I confirmed the fit of both the top and bottom parts, it was time to explore the feasibility of expanding this process by an industrial scale; 100,000 parts (50,000 full sets) a year. Using the Siemens Tecnomatix Plant Simulation software, I modeled how the Festo lab would interact with the 3d printers to investigate the process. First I needed to determine the number of printers that would be required for this process. An assumption of a 250 day industrial calendar was made to account for UK bank holidays, downtime, annual leave and weekends. Otherwise the plant would function on a 24/7 basis. A 10% failure factor was implemented to account for any failed prints as well as an effective availability factor of 95% which was used to estimate the actual uptime of the printers.</p>
                         
-                        <div class="p-8 bg-slate-900 rounded-3xl text-blue-400 font-mono text-[11px] leading-relaxed shadow-xl">
+                        <div class="p-8 bg-slate-900 rounded-3xl text-blue-400 font-mono text-[11px] leading-relaxed shadow-xl mb-12">
                             <p>// 1. Global Fleet Capacity Formula</p>
                             <p>Required Fleet = (Annual Volume × Print Time (mins) × Scrap Factor (1.11)) / Operational Minutes per Machine</p>
                             <p class="mt-4">// 2. Bottom Cases (50,000 units)</p>
@@ -345,18 +345,53 @@
                             <p>Total Load: 50,000 × 73.8 mins × 1.11 = 4,095,900 total load minutes</p>
                             <p>Required Units: 4,095,900 / 342,000 = 11.97 (12 Units Required)</p>
                         </div>
+
+                        <p>The festo simulation was designed such that 23 printers would be used to print the bottom cases and 12 printers would be used to print the top cases. The bottom cases required measurement at the measuring station whereas the top cases did not. From this I gathered that I could create two sources, one that fed into the mag station (bottom cases), and one that fed into the operator station (top cases). Each source assumed a rate of production of 6.04 min and 6.15 min per bottom and top part respectively.</p>
+                        
+                        <p>This may sound counterintuitive because the printers technically take roughly 14hrs to print a batch of 6 bottom cases however, by employing a staggered approach and adding a buffer after each source, a steady stream of parts could be produced roughly every 6 minutes. A buffer should contain at least a whole fleet's worth of parts to account for a possible failure in the staggered system.</p>
+
+                        <div class="grid lg:grid-cols-2 gap-8 my-8">
+                            <div class="p-6 bg-white border border-slate-200 rounded-2xl">
+                                <h5 class="font-bold text-blue-600 uppercase text-xs mb-4">Bottom Case Buffer Logic</h5>
+                                <ul class="text-xs space-y-2 text-slate-500">
+                                    <li>Fleet Batch: 23 printers × 6 parts = 138 parts</li>
+                                    <li>Recovery Lead Time: 14 hours (Total reprint time)</li>
+                                    <li>Consumption Rate: 10 parts/hour</li>
+                                    <li>Safety Float (2h): 20 units</li>
+                                    <li class="font-bold text-slate-800">Total Buffer Capacity: 158 units</li>
+                                </ul>
+                            </div>
+                            <div class="p-6 bg-white border border-slate-200 rounded-2xl">
+                                <h5 class="font-bold text-blue-600 uppercase text-xs mb-4">Top Case Buffer Logic</h5>
+                                <ul class="text-xs space-y-2 text-slate-500">
+                                    <li>Fleet Batch: 12 printers × 6 parts = 72 parts</li>
+                                    <li>Recovery Lead Time: 73.8 minutes</li>
+                                    <li>Consumption Rate: 10 parts/hour</li>
+                                    <li>Safety Float (2h): 20 units</li>
+                                    <li class="font-bold text-slate-800">Total Buffer Capacity: 92 units</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <p>The buffer capacity will be maintained by IoT sensors that will be triggered if the capacity reaches an 80% reduction by which a signal will be sent to a standby printer that will print until the levels reach 50% reduction. This ensuring that the line never "starves" while also avoiding excessive overproduction.</p>
                     </div>
 
-                    <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 max-w-2xl mx-auto shadow-inner">
-                        <video controls muted loop class="w-full h-full object-contain rounded-2xl">
-                            <source src="Timelapse%20plant%20sim_small.mp4" type="video/mp4">
-                        </video>
-                        <p class="p-4 text-center text-xs text-slate-500 italic">Tecnomatix Operational Loop (24h compressed cycle)</p>
+                    <!-- SIMULATION VIDEOS -->
+                    <div class="space-y-6">
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Simulation Execution Log</h4>
+                        <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 max-w-2xl mx-auto shadow-inner">
+                            <div class="aspect-video bg-slate-900 rounded-2xl overflow-hidden">
+                                <video controls muted loop class="w-full h-full object-contain">
+                                    <source src="Timelapse plant sim_small.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <p class="p-4 text-center text-xs text-slate-500 italic">Visualizing FIFO buffer logic and station occupancy over a 24h cycle.</p>
+                        </div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
-                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white"><img src="Birds%20eye%20view%20of%20Plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+Capital+P'"><p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Birds eye view of Plant.png</p></div>
-                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white"><img src="3D%20view%20of%20plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+lowercase+p'"><p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">3D view of plant.png</p></div>
+                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white"><img src="Birds eye view of Plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+Capital+P'"><p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Birds eye view of Plant.png</p></div>
+                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white"><img src="3D view of plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+lowercase+p'"><p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">3D view of plant.png</p></div>
                     </div>
 
                     <div class="space-y-8 pt-10">
@@ -365,8 +400,8 @@
                             <p>There was a real "heart-in-mouth" moment during the first physical run. As you'll see in the failure video, the sagging from Version 2 completely threw off the laser alignment—the Digital Twin was telling us it was wrong, and the physical line proved it. Once we implemented the Test 4 bridging settings in Version 7, the assembly passed with 100% verification.</p>
                         </div>
                         <div class="grid lg:grid-cols-2 gap-8">
-                            <div class="glass-card rounded-3xl overflow-hidden bg-slate-900"><video controls class="w-full h-64 object-cover"><source src="Festo%20Fail.mp4" type="video/mp4"></video><div class="p-4 bg-white"><h5 class="font-bold text-xs uppercase text-red-600">V2 Failure (Overhang Sag)</h5></div></div>
-                            <div class="glass-card rounded-3xl overflow-hidden bg-slate-900 border-2 border-green-500"><video controls class="w-full h-64 object-cover"><source src="Festo%20success.mp4" type="video/mp4"></video><div class="p-4 bg-white"><h5 class="font-bold text-xs uppercase text-green-600">V7 Success (Verified)</h5></div></div>
+                            <div class="glass-card rounded-3xl overflow-hidden bg-slate-900"><video controls class="w-full h-64 object-cover"><source src="Festo Fail.mp4" type="video/mp4"></video><div class="p-4 bg-white"><h5 class="font-bold text-xs uppercase text-red-600">V2 Failure (Overhang Sag)</h5></div></div>
+                            <div class="glass-card rounded-3xl overflow-hidden bg-slate-900 border-2 border-green-500"><video controls class="w-full h-64 object-cover"><source src="Festo success.mp4" type="video/mp4"></video><div class="p-4 bg-white"><h5 class="font-bold text-xs uppercase text-green-600">V7 Success (Verified)</h5></div></div>
                         </div>
                     </div>
 
@@ -376,8 +411,8 @@
                     </div>
 
                     <div class="grid lg:grid-cols-2 gap-8 pt-10">
-                        <img src="Worker%20efficiency%20chart.png" class="glass-card rounded-3xl p-6 bg-white border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Efficiency+Chart'">
-                        <img src="Bottleneck%20analysis.png" class="glass-card rounded-3xl p-6 bg-white border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+Chart'">
+                        <img src="Worker efficiency chart.png" class="glass-card rounded-3xl p-6 bg-white border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Efficiency+Chart'">
+                        <img src="Bottleneck analysis.png" class="glass-card rounded-3xl p-6 bg-white border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+Chart'">
                     </div>
                 </section>
 
@@ -447,7 +482,7 @@
         const iterations = {
             v1: { title: "V1: Support Welding", desc: "<p>This week I decided to print out the first prototype with the Elegoo Centauri Carbon 2 using the Elegoo slicers native settings to see how it fared. I printed the part flat on its back with full supports for the 33 x 40 mm overhang in the middle of the case. I kept the slicer settings unaltered and proceeded with the print which took 55 minutes and 40 seconds. The infill was at a default of 15% and the finish was of a very high quality however there were a few complications. The supports were essentially welded into the body of the case and that made them virtually impossible to remove, furthermore, roughly 5mm above the chamfer was a prominent ridge that did not correspond to the injection moulded part.</p>", meta: "// FEATURE: FLAT_BACK | STATUS: FAILED_POST_PROC", img: "V1.jpeg" },
             v2: { title: "V2: Supportless Bridging", desc: "<p>I was curious to see how the print would perform without supports so I ran the print again with its native settings to see how it would deal with the overhang. Surprisingly the default overhang settings were almost adequate and showed that bridging over this distance was possible however, the layerlines were all too visible and displayed some wide interlayer gaps that exposed the infill beneath. There was also some slight sagging in the middle of the overhang due to a mixture of factors such as bridging speed, layer height and gravity. Taking this version into the festo lab, it became apparent that this sagging had an effect on the measurements that the laser was taking, effectively putting it out of range.</p>", meta: "// FEATURE: NO_SUPPORTS | STATUS: OUT_OF_TOLERANCE", img: "V2 Flat.jpeg" },
-            v3: { title: "V3: PETG Interface", desc: "<p>To mitigate the sagging I decided to revisit the idea of using supports but this time I implemented a PETG interface layer to simplify the post processing operations. Because PLA and PETG do not form strong bonds together, I expected this configuration to yield very weak attachment points at the interface allowing for seamless removal of the supports. I was however surprised to observe that the PETG interface layer bonded just as strongly to the PLA as PLA would to itself.</p>", meta: "// FEATURE: PETG_INTERFACE | STATUS: ADHESION_CONFLICT", img: "V1.jpeg" },
+            v3: { title: "V3: PETG Interface", desc: "<p>To mitigate the sagging I decided to revisit the idea of using supports but this time I implemented a PETG interface layer to simplify the post processing operations. Because PLA and PETG do not form strong bonds together, I expected this configuration to yield very weak attachment points at the interface allowing for seamless removal of the supports. I was however surprised to observe that the PETG interface layer bonded just as strongly to the PLA as PLA would to itself. Moreover, in this prototype, I made some changes to the slicer settings to accommodate the issues that I faced.</p>", meta: "// FEATURE: PETG_INTERFACE | STATUS: ADHESION_CONFLICT", img: "V1.jpeg" },
             v4: { title: "V4: 90° Orientation", desc: "<p>I investigated printing the case standing straight up at 90° with no supports and I found that the overall finish was superb and so far looked the closest to the injection moulded counterpart. The issue however was that the overhangs were not supported and a lot of warping took place especially at the roofs of the slots. The decision to not add supports was made because it would further complicate the post processing as the four holes are too small and the support structures would effectively get stuck in the crevices.</p>", meta: "// FEATURE: 90_DEGREE | STATUS: STRUCTURAL_WARP", img: "V4 upright.jpeg", gallery: [{src: "V4 upright.jpeg", label: "Main"}, {src: "V4 Upright hole warp.jpeg", label: "Hole Warp"}, {src: "V4 upright roof warp.jpeg", label: "Roof Warp"}, {src: "V4 upright wide view.jpeg", label: "Wide View"}] },
             v5: { title: "V5: 45° Upright", desc: "<p>I changing the orientation to 45 degrees in the upright position and printing, again, with no supports. This immediately fixed the overhang issue but presented a whole different issue altogether. I discovered that there was some sagging at the middle of the part that resulted in a curved phone case. I attributed this to the wall loop setting (set at 2) possibly providing insufficient strength to hold its shape while still in the molten state. I increased wall loops to 4 and infill to 20% but it made no difference.</p>", meta: "// FEATURE: 45_DEGREE | STATUS: GEOMETRIC_FAILURE", img: "V5 standing no supports.jpeg", gallery: [{src: "V5 standing no supports.jpeg", label: "Front View"}, {src: "V5 curvature no supports.jpeg", label: "Curvature View"}] },
             v51: { title: "V5.1: 45° with Support", desc: "<p>Tried again with supports. Again revisited with the same sagging results despite massive external scaffolding, suggesting the issue was thermal contraction related during the layer transition. The images show the persistent curvature despite the extra material.</p>", meta: "// FEATURE: REVISED_45 | STATUS: GEOMETRIC_FAILURE", img: "V5.1 standing with supports.jpeg", gallery: [{src: "V5.1 standing with supports.jpeg", label: "Setup"}, {src: "V5.1 Curvature with supports.jpeg", label: "Persistent Curve"}] },
