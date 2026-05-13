@@ -248,17 +248,42 @@
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
-                        <div class="glass-card rounded-3xl overflow-hidden p-2">
-                            <img src="Tecnomatix%202D.jpeg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Check+Tecnomatix+2D.jpeg'">
-                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.1: Logical 2D Flow Map</p>
+                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
+                            <img src="Birds%20eye%20view%20of%20Plant.jpg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Birds+eye+view+of+Plant.jpg'">
+                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.1: Logical 2D Flow Map & Worker Routing</p>
                         </div>
-                        <div class="glass-card rounded-3xl overflow-hidden p-2">
-                            <img src="Tecnomatix%203D.jpeg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Check+Tecnomatix+3D.jpeg'">
-                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.2: Spatial 3D Layout</p>
+                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
+                            <img src="3D%20view%20of%20plant.jpg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=3D+view+of+plant.jpg'">
+                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.2: 3D Isometric Factory Layout</p>
                         </div>
                     </div>
 
-                    <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- NEW SIMULATION RESULTS ANALYSIS -->
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Resource & Bottleneck Analysis</h4>
+                        <div class="prose prose-slate max-w-4xl">
+                            <p>After running the simulation, I looked into the resource statistics to see how hard the equipment and staff were actually working. It was interesting to see that while the Oven Station and the Operator Station were the busiest parts of the loop, there's still a massive amount of "Waiting" time across the whole system. This suggests that the 6-minute takt time of the Festo line is actually quite relaxed compared to the speed the machines can handle.</p>
+                        </div>
+                        
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white">
+                                <img src="Worker%20efficiency%20chart.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Worker+efficiency+chart.png'">
+                                <div class="mt-6 space-y-3">
+                                    <h5 class="font-black text-xs uppercase text-blue-600 tracking-widest">Worker Statistics</h5>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The data shows the worker is "Waiting" for about 80% of the time. Even with the broker managing the tasks, the human interaction is only needed for about 12% of the operational cycle. This confirms that the line is highly automated, but it might also mean I could give this worker more tasks, like managing the 3D printer fleet maintenance, without slowing down the Festo loop.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white">
+                                <img src="Bottleneck%20analysis.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+analysis.png'">
+                                <div class="mt-6 space-y-3">
+                                    <h5 class="font-black text-xs uppercase text-blue-600 tracking-widest">Station Utilization</h5>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">Looking at the bar chart, the green "Working" portions are very low. The Oven Station is the most utilized at around 15%, followed by the Operator Station. The rest of the time, the machines are just waiting for the next part to arrive from the buffer. This proves that our buffer capacity of 158 units is more than enough to keep the line fed without any starving errors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8 mt-12">
                         <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm space-y-4">
                             <h4 class="text-blue-600 font-bold uppercase text-xs tracking-widest">Bottom Case Logic (FIFO: 158)</h4>
                             <p class="text-sm text-slate-600 leading-relaxed text-justify">Fleet Size: 23 Printers. Batch Size: 6 Parts. Recovery Lead Time: 14 hours. Consumption Rate (FESTO): 10 parts/hour. Safety Float: 20 units (2 hours of production). <strong>Total Buffer Capacity: 158 units.</strong></p>
@@ -427,7 +452,11 @@
             const section = document.getElementById(sectionId);
             if (section) {
                 section.classList.remove('hide');
-                if (sectionId === 'simulation') Object.values(charts).forEach(chart => chart.resize());
+                if (sectionId === 'simulation') {
+                    setTimeout(() => {
+                        Object.values(charts).forEach(chart => chart.resize());
+                    }, 100);
+                }
             }
             const btn = document.getElementById('btn-' + sectionId);
             if (btn) btn.classList.add('nav-active');
