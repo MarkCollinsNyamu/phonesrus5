@@ -66,8 +66,8 @@
         .bridging-card img { height: 160px; object-fit: cover; width: 100%; border-radius: 0.5rem; background: #f1f5f9; }
         
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { background: #f8fafc; padding: 1rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; }
-        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+        th { background: #f8fafc; padding: 1.25rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; }
+        td { padding: 1.25rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
         
         .prose p { 
             margin-bottom: 1.5rem; 
@@ -153,24 +153,22 @@
 
             <div class="p-6 lg:p-16">
                 
-                <!-- SECTION 1: CONTEXT -->
+                <!-- 1. STRATEGIC CONTEXT -->
                 <section id="context" class="space-y-12">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">1. The Injection Moulding Bottleneck</h3>
-                        <p>Typically the main manufacturing method for the production of mobile phone casings is injection moulding. Adhesives Technologies offers insight into what can happen when injection moulding goes wrong. Their corrosive additives consumed tooling, produced vapour that burned moulds, and turned a 12-week lead time into a 24-week delay.</p>
-                        <p>Incorporating Industry 4.0 technologies such as additive manufacturing and digital twins can help to stretch the possibilities rendered impossible by the rigidity of injection moulding. Industry 4.0 provides a shift from centralised to de-centralised manufacturing. Merit3D used photopolymer carbon DLS (digital light synthesis) to rapidly prototype iterations in a single day, proving that high-speed printing can replace traditional methods.</p>
+                        <p>An imaginary phone manufacturer (phonesRus) has approached us to produce the top and bottom casings for their mobile devices. Typically the main manufacturing method for the production of mobile phone casings is injection moulding and with good reason. Injection moulding has significant benefits such as high repeatability and high speed manufacturing however the potential disadvantages can be devastating.</p>
+                        <p>Adhesives Technologies is a company that develops bonding chemicals that act as alternatives to bolts and welds and their case offers some insight into what can happen when injection moulding goes wrong. To achieve the strong bonding properties of their chemicals, highly reactive additives are required and in this case, the additives became overly corrosive when heated up to the moulding temperature. The additives began ‘consuming’ the tooling effectively altering the precision of the mould resulting in incompatible components. Furthermore, the multiple heat cycles further propagated the damage causing the tooling faces of each half to shift. To make matters worse, the pressure release valves were insufficient because the additives produced more vapour than could be released, literally burning the mould. The impact of this damage meant that the tools needed to be rebuilt which resulted in a delay where what used to be a 12 week lead time became a 24 week delay.</p>
+                        <p>Incorporating industry 4.0 technologies such as additive manufacturing and digital twins can help to stretch the possibilities rendered impossible by the rigidity of injection moulding. Industry 4.0 can be defined as the intelligent networking of processes and machinery in industry using data [1]. A major attribute of industry 4.0 is that it provides a shift from centralised manufacturing to de-centralised manufacturing, contributing potential solutions to setbacks such as the one mentioned above. Merit3D used photopolymer carbon DLS (digital light synthesis) to rapidly prototype iterations until they got the final result, a process that took a single day. Within three days the hangers were on the production line using high speed printing technology to print thousands of parts per day. Merit3D proved that additive manufacturing can replace traditional manufacturing methods such as injection moulding and as such, it will be the method of manufacture that we will utilise in this undertaking.</p>
                     </div>
-                    <div class="chart-container glass-card rounded-3xl p-8 shadow-inner">
-                        <h4 class="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">Financial Feasibility Study</h4>
-                        <canvas id="chart-fin"></canvas>
-                    </div>
+                    <div class="chart-container glass-card rounded-3xl p-8 shadow-inner"><canvas id="chart-fin"></canvas></div>
                 </section>
 
-                <!-- SECTION 2: ENGINEERING -->
+                <!-- 2. ENGINEERING & DESIGN -->
                 <section id="engineering" class="hide space-y-16">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">2. Engineering & Design Logs</h3>
-                        <p>Today I began the task of deciphering the provided engineering drawings. From the main drawing, I decided to model a quarter of the model and use the mirror tool to simplify the process. Sketch dimensions: 57x30 rectangle. Side arcs center 89.009 from left (radius 85.76). Top/bottom arcs center 364.723 (radius 362.47).</p>
+                        <p>Today I began the task of deciphering the provided engineering drawings of both the top and bottom casings. From the main drawing I decided to only model a quarter of the model and subsequently use the mirror tool to simplify the process. I entered the sketch environment and drew a rectangle of dimensions 57x30 to represent the quarter of the body. Side arcs (left and right) center of 89.009 from the left with an arc radius of 85.76. Top and bottom arcs center of 364.723 and arc radius of 362.47.</p>
                     </div>
 
                     <!-- CASE ITERATION ENGINE -->
@@ -196,21 +194,22 @@
                             </div>
                             <div class="bg-slate-100 p-8 flex items-center justify-center">
                                 <div class="bg-white p-4 rounded-2xl shadow-xl w-full max-w-sm border border-slate-200">
-                                    <img id="iter-img" src="V1.jpeg" class="w-full h-72 object-contain rounded-lg mb-4 bg-slate-50" onerror="this.src='https://placehold.co/400x500/0f172a/white?text=Verify+Filename+on+GitHub'">
+                                    <img id="iter-img" src="images/V1.jpeg" class="w-full h-72 object-contain rounded-lg mb-4 bg-slate-50" onerror="this.src='https://placehold.co/400x500/0f172a/white?text=Verify+Filename+on+GitHub'">
                                     <p class="text-[9px] text-center font-bold text-slate-400 uppercase tracking-widest italic">Dissertation Evidence Log</p>
-                                    <!-- V4 Gallery Thumbnails (Hidden for other iterations) -->
+                                    
+                                    <!-- V4 Gallery Thumbnails (only shows when V4 is selected) -->
                                     <div id="v4-gallery" class="hide mt-4 flex gap-2 flex-wrap justify-center">
                                         <button onclick="switchV4Image(0)" id="v4-thumb-0" class="gallery-thumb active w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="V4%20upright.jpeg" class="w-full h-full object-cover">
+                                            <img src="images/V4%20upright.jpeg" class="w-full h-full object-cover">
                                         </button>
                                         <button onclick="switchV4Image(1)" id="v4-thumb-1" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="V4%20Upright%20hole%20warp.jpeg" class="w-full h-full object-cover">
+                                            <img src="images/V4%20Upright%20hole%20warp.jpeg" class="w-full h-full object-cover">
                                         </button>
                                         <button onclick="switchV4Image(2)" id="v4-thumb-2" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="V4%20upright%20roof%20warp.jpeg" class="w-full h-full object-cover">
+                                            <img src="images/V4%20upright%20roof%20warp.jpeg" class="w-full h-full object-cover">
                                         </button>
                                         <button onclick="switchV4Image(3)" id="v4-thumb-3" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="V4%20upright%20wide%20view.jpeg" class="w-full h-full object-cover">
+                                            <img src="images/V4%20upright%20wide%20view.jpeg" class="w-full h-full object-cover">
                                         </button>
                                     </div>
                                 </div>
@@ -232,10 +231,10 @@
                         <div class="glass-card rounded-3xl overflow-hidden grid lg:grid-cols-2 bg-slate-50">
                             <div class="p-10 flex flex-col justify-center">
                                 <h5 id="bridge-title" class="text-2xl font-black mb-4 uppercase italic">Test 1: Precision vs Integrity</h5>
-                                <p id="bridge-desc" class="text-slate-600 leading-relaxed text-justify">Initial test at 0.08mm layer height. While high precision was targeted, the bridge lacked structural integrity during the cooling phase, resulting in severe filament strand separation.</p>
+                                <p id="bridge-desc" class="text-slate-600 leading-relaxed text-justify"></p>
                             </div>
                             <div class="p-6">
-                                <img id="bridge-img" src="Bridging_v1.jpg" class="w-full h-64 object-cover rounded-2xl shadow-inner border border-slate-200" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+Bridging_v1.jpg'">
+                                <img id="bridge-img" src="images/Bridging_v1.jpg" class="w-full h-64 object-cover rounded-2xl shadow-inner border border-slate-200" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+Bridging_v1.jpg'">
                             </div>
                         </div>
                     </div>
@@ -245,16 +244,16 @@
                 <section id="simulation" class="hide space-y-12">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">3. Digital Twin Simulation</h3>
-                        <p>Using <strong>Siemens Tecnomatix Plant Simulation</strong>, I modeled the Festo lab to investigate industrial scaling for 100,000 units per year.</p>
+                        <p>Once I confirmed the fit of both the top and bottom parts, it was time to explore the feasibility of expanding this process by an industrial scale; 100,000 parts (50,000 full sets) a year. Using the <strong>Siemens Tecnomatix Plant Simulation</strong> software, I modeled how the Festo lab would interact with the 3D printers to investigate the process.</p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="glass-card rounded-3xl overflow-hidden p-2">
-                            <img src="Tecnomatix_2D.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Tecnomatix_2D.png'">
+                            <img src="images/Tecnomatix_2D.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Tecnomatix_2D.png'">
                             <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.1: Logical 2D Flow Map</p>
                         </div>
                         <div class="glass-card rounded-3xl overflow-hidden p-2">
-                            <img src="Tecnomatix_3D.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Tecnomatix_3D.png'">
+                            <img src="images/Tecnomatix_3D.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Tecnomatix_3D.png'">
                             <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.2: Spatial 3D Layout</p>
                         </div>
                     </div>
@@ -262,11 +261,11 @@
                     <div class="grid lg:grid-cols-2 gap-8">
                         <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm space-y-4">
                             <h4 class="text-blue-600 font-bold uppercase text-xs tracking-widest">Bottom Case Logic (FIFO: 158)</h4>
-                            <p class="text-sm text-slate-600 leading-relaxed text-justify">23 Printers x 6 Parts batch. Recovery Lead Time: 14h. Consumption: 10 parts/hour. Safety Float: 20 units. <strong>Total: 158 Capacity.</strong></p>
+                            <p class="text-sm text-slate-600 leading-relaxed text-justify">Fleet Size: 23 Printers. Batch Size: 6 Parts. Recovery Lead Time: 14 hours. Consumption Rate (FESTO): 10 parts/hour. Safety Float: 20 units (2 hours of production). <strong>Total Buffer Capacity: 158 units.</strong></p>
                         </div>
                         <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm space-y-4">
                             <h4 class="text-blue-600 font-bold uppercase text-xs tracking-widest">Top Case Logic (FIFO: 92)</h4>
-                            <p class="text-sm text-slate-600 leading-relaxed text-justify">12 Printers x 6 Parts batch. Recovery Lead Time: 73.8 min. Consumption: 10 parts/hour. Safety Float: 20 units. <strong>Total: 92 Capacity.</strong></p>
+                            <p class="text-sm text-slate-600 leading-relaxed text-justify">Fleet Size: 12 Printers. Batch Size: 6 Parts. Recovery Lead Time: 73.8 minutes. Consumption Rate: 10 parts/hour. Safety Float: 20 units. <strong>Total Buffer Capacity: 92 units.</strong></p>
                         </div>
                     </div>
 
@@ -280,6 +279,7 @@
                 <section id="vsm" class="hide space-y-12">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">4. Value Stream Analysis</h3>
+                        <p>To reconcile the 14-hour batch processing of additive manufacturing with the 6-minute tactical demand of the FESTO automation line, a staggered value stream was mapped using a FIFO queue architecture.</p>
                     </div>
                     <div class="flex flex-wrap gap-4">
                         <div class="vsm-node glass-card"><p class="font-bold text-xs text-blue-600 uppercase mb-2">AM Batch</p><p class="font-mono text-2xl font-bold">14.0h</p></div>
@@ -300,7 +300,7 @@
                             </thead>
                             <tbody class="divide-y divide-slate-100">
                                 <tr><td class="font-bold">Printing</td><td class="italic text-slate-500">Spaghetti failure (adhesion)</td><td class="text-center font-bold">64</td><td>FIFO Buffer Safety Float (2h).</td></tr>
-                                <tr><td class="font-bold">IoT Loop</td><td class="italic text-slate-500">Sensor dropout / Latency</td><td class="text-center font-bold text-red-600">105</td><td>Exit Control Standby Trigger via SimTalk.</td></tr>
+                                <tr><td class="font-bold">IoT Loop</td><td class="italic text-slate-500">Sensor dropout / Latency</td><td class="text-center font-bold text-red-600">105</td><td>Exit Control Standby Trigger via SimTalk script.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -316,78 +316,79 @@
 
     <script>
         const v4Images = [
-            { src: "V4%20upright.jpeg", label: "Main View" },
-            { src: "V4%20Upright%20hole%20warp.jpeg", label: "Hole Warp" },
-            { src: "V4%20upright%20roof%20warp.jpeg", label: "Roof Warp" },
-            { src: "V4%20upright%20wide%20view.jpeg", label: "Wide View" }
+            { src: "images/V4%20upright.jpeg", label: "Main View" },
+            { src: "images/V4%20Upright%20hole%20warp.jpeg", label: "Hole Warp" },
+            { src: "images/V4%20upright%20roof%20warp.jpeg", label: "Roof Warp" },
+            { src: "images/V4%20upright%20wide%20view.jpeg", label: "Wide View" }
         ];
 
         const iterations = {
             v1: { 
                 title: "V1: Support Welding", 
-                desc: "<p>First prototype with Elegoo Centauri Carbon 2. Printed flat on back with full supports for 33x40mm middle overhang. Supports were welded into the body, making removal impossible. Ridge found above chamfer.</p>", 
+                desc: "<p>This week I decided to print out the first prototype with the Elegoo Centauri Carbon 2 using the Elegoo slicers native settings to see how it fared. I printed the part flat on its back with full supports for the 33 x 40 mm overhang in the middle of the case. I kept the slicer settings unaltered and proceeded with the print which took 55 minutes and 40 seconds. The infill was at a default of 15% and the finish was of a very high quality however there were a few complications. The supports were essentially welded into the body of the case and that made them virtually impossible to remove, furthermore, roughly 5mm above the chamfer was a prominent ridge that did not correspond to the injection moulded part.</p>", 
                 meta: "// FEATURE: FLAT_BACK | STATUS: FAILED_POST_PROC", 
-                img: "V1.jpeg" 
+                img: "images/V1.jpeg" 
             },
             v2: { 
                 title: "V2: Supportless Bridging", 
-                desc: "<p>Bridging trial over middle overhang. Layer lines were visible with wide interlayer gaps exposing infill. Sagging caused range errors during FESTO lab laser measurements.</p>", 
+                desc: "<p>Surprisingly the default overhang settings were almost adequate and showed that bridging over this distance was possible however, the layerlines were all too visible and displayed some wide interlayer gaps that exposed the infill beneath. There was also some slight sagging in the middle of the overhang due to a mixture of factors such as bridging speed, layer height and gravity. Taking this version into the festo lab, it became apparent that this sagging had an effect on the measurements that the laser was taking, effectively putting it out of range.</p>", 
                 meta: "// FEATURE: NO_SUPPORTS | STATUS: OUT_OF_TOLERANCE", 
-                img: "V2%20Flat.jpeg" 
+                img: "images/V2%20Flat.jpeg" 
             },
             v4: { 
                 title: "V4: 90° Upright Orientation", 
                 desc: "<p>Orientation trial at 90 degrees standing straight up. Finish was superb, but roofs of slots warped due to heat and lack of structural scaffolding. Click the thumbnails below to view warping from different angles.</p>", 
                 meta: "// FEATURE: 90_DEGREE | STATUS: STRUCTURAL_WARP", 
-                img: "V4%20upright.jpeg",
+                img: "images/V4%20upright.jpeg",
                 hasGallery: true
             },
             v5: { 
                 title: "V5: 45° Upright Sagging", 
-                desc: "<p>Trial at 45 degrees without supports. Orientation fixed the roofs but presented mid-part sagging, resulting in a curved case.</p>", 
+                desc: "<p>Changing the orientation to 45 degrees fixed the overhang issue but presented sagging at the middle resulting in a curved phone case. I attributed this to the wall loop setting (set at 2) providing insufficient strength to hold its shape while still in the molten state. I increased the wall loops to 4 and infill to 20% but it made no difference.</p>", 
                 meta: "// FEATURE: 45_DEGREE | STATUS: GEOMETRIC_FAILURE", 
-                img: "V5%20standing%20no%20supports.jpeg" 
+                img: "images/V5%20standing%20no%20supports.jpeg" 
             },
             v51: { 
                 title: "V5.1: Revised 45° Support", 
-                desc: "<p>Added external scaffolding and increased wall loops further. Sagging persisted despite scaffolding, suggesting thermal contraction during layer transition.</p>", 
+                desc: "<p>Tried again with supports. Again revisited with the same sagging results despite external scaffolding, suggesting the issue was thermal contraction related during the layer transition.</p>", 
                 meta: "// FEATURE: REVISED_45 | STATUS: GEOMETRIC_FAILURE", 
-                img: "V5.1%20standing%20with%20supports.jpeg" 
+                img: "images/V5.1%20standing%20with%20supports.jpeg" 
             },
             v6: { 
                 title: "V6: Side-Orientation Trial", 
-                desc: "<p>Printed on side at 45 degrees. Worst texture results; layer lines were highly prominent as the nozzle travelled the full length of the part.</p>", 
+                desc: "<p>Printed on its side at 45 degrees. Unpleasantly the worst version yet. Layer lines were prominent because the nozzle travelled along the whole length increasing their visibility. Exhibited warping and a rough finish.</p>", 
                 meta: "// FEATURE: SIDE_PRINT | STATUS: TEXTURE_FAILURE", 
-                img: "V6%20Side.jpeg" 
+                img: "images/V6%20Side.jpeg" 
             },
             v7: { 
                 title: "V7: The Hero Part", 
-                desc: "<p>The final verified part. Optimized bridging speed (Test 4), 60% Gyroid infill for internal scaffolding, and Arachne pathing for snap-fits.</p>", 
+                desc: "<p>The final verified part. Optimized bridging speed (Test 4), 60% Gyroid infill for internal scaffolding, and Arachne pathing for snap-fits. Successfully passed all automation validation steps in the lab.</p>", 
                 meta: "// FEATURE: ARACHNE_LOGIC | STATUS: VERIFIED_SUCCESS", 
-                img: "V7%20Hero.jpeg" 
+                img: "images/V7%20Hero.jpeg" 
             }
         };
 
         const bridgingTests = {
-            b1: { title: "Test 1: 0.08mm Layer Height", desc: "Initial test at 0.08mm layer height. While high precision was targeted, the bridge lacked structural integrity during the cooling phase, resulting in filament separation.", img: "Bridging_v1.jpg" },
-            b2: { title: "Test 2: 0.12mm Layer Height", desc: "Improvement in surface finish, but slight drooping was observed in the center of the span. Cooling fan was unable to solidify the layer fast enough.", img: "Bridging_v2.jpg" },
-            b3: { title: "Test 3: 0.20mm Layer Height", desc: "Faster print speed trial. The increased material flow caused the bridge to be too heavy, resulting in a notable bow in the final part.", img: "Bridging_v3.jpg" },
-            b4: { title: "Test 4: WINNER (Optimized)", desc: "The successful setting. Fans set to 100%, bridge flow rate reduced to 95%, and travel speed increased to 50mm/s for the span. Perfectly flat bridge achieved.", img: "Bridging_v4.jpg" },
-            b5: { title: "Test 5: 0.30mm Layer Height", desc: "Draft quality test. Too coarse for the application. The 'spaghetti' effect began to appear at the start of the bridge due to excessive layer height.", img: "Bridging_v5.jpg" }
+            b1: { title: "Test 1: 0.08mm Layer Height", desc: "Initial test at 0.08mm layer height. While high precision was targeted, the bridge lacked structural integrity during the cooling phase, resulting in filament separation and poor adhesion.", img: "images/Bridging_v1.jpg" },
+            b2: { title: "Test 2: 0.12mm Layer Height", desc: "Slightly improved flow, but the cooling fan settings were too low, causing the strands to sag under their own weight before solidifying across the span.", img: "images/Bridging_v2.jpg" },
+            b3: { title: "Test 3: 0.20mm Layer Height", desc: "Increased layer height for speed. The thick extrusions failed to bridge effectively, as the increased mass caused the center of the span to bow significantly.", img: "images/Bridging_v3.jpg" },
+            b4: { title: "Test 4: WINNER (Optimized)", desc: "The successful setting. Fans set to 100%, bridge flow rate reduced to 95%, and travel speed increased to 50mm/s for the span. Perfectly flat bridge achieved.", img: "images/Bridging_v4.jpg" },
+            b5: { title: "Test 5: 0.30mm Layer Height", desc: "High layer height trial. It was observed that beyond 0.25mm, increasing the layer height further didn't really change the bridge result or improve efficiency, indicating the physical limits of the span had been reached.", img: "images/Bridging_v5.jpg" }
         };
 
         function setIter(id) {
             const data = iterations[id];
             if (!data) return;
+            const imgEl = document.getElementById('iter-img');
             document.getElementById('iter-title').innerText = data.title;
             document.getElementById('iter-desc').innerHTML = data.desc;
             document.getElementById('iter-meta').innerText = data.meta;
-            document.getElementById('iter-img').src = data.img;
+            imgEl.src = data.img;
             
-            // Show/hide gallery thumbnails for V4
             const galleryEl = document.getElementById('v4-gallery');
             if (data.hasGallery) {
                 galleryEl.classList.remove('hide');
+                switchV4Image(0); // Reset to first image in gallery
             } else {
                 galleryEl.classList.add('hide');
             }
