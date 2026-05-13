@@ -66,6 +66,609 @@
         .bridging-card img { height: 160px; object-fit: cover; width: 100%; border-radius: 0.5rem; background: #f1f5f9; }
         
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { background: #f8fafc; padding: 1rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; color: #64748b; }
+        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+        
+        .prose p { 
+            margin-bottom: 1.5rem; 
+            line-height: 1.8; 
+            text-align: justify; 
+            color: #334155; 
+        }
+
+        .prose h4 {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            color: var(--tech-slate);
+        }
+
+        .pfd-step {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 2rem;
+            border-left: 2px dashed #e2e8f0;
+        }
+        .pfd-step:last-child { border-left: none; }
+        .pfd-number {
+            position: absolute;
+            left: -1rem;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.75rem;
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        .vsm-node { border: 2px solid #e2e8f0; padding: 1.5rem; border-radius: 1rem; position: relative; flex: 1; min-width: 200px; }
+        .vsm-node::after { content: '→'; position: absolute; right: -15px; top: 50%; transform: translateY(-50%); color: #cbd5e1; font-size: 1.5rem; z-index: 10; }
+        .vsm-node:last-child::after { content: ''; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen flex flex-col lg:flex-row">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="lg:w-80 bg-white border-r border-slate-200 p-6 flex flex-col gap-8 z-50 lg:h-screen lg:sticky lg:top-0">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black italic shadow-lg">PR</div>
+                <div>
+                    <h1 class="font-extrabold tracking-tighter text-lg leading-none uppercase italic">Phones<span class="text-blue-600">Rus</span></h1>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">MSc Digital Design & Mfg</p>
+                </div>
+            </div>
+
+            <nav class="flex flex-col gap-1">
+                <button onclick="navigate('context')" id="btn-context" class="nav-active flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all text-left">
+                    <span class="text-lg">📊</span> 1. Strategic Context
+                </button>
+                <button onclick="navigate('engineering')" id="btn-engineering" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">🛠️</span> 2. Engineering & Design
+                </button>
+                <button onclick="navigate('pfd')" id="btn-pfd" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">📋</span> 3. Process Flow (PFD)
+                </button>
+                <button onclick="navigate('simulation')" id="btn-simulation" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">🔄</span> 4. Digital Twin Simulation
+                </button>
+                <button onclick="navigate('vsm')" id="btn-vsm" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">📈</span> 5. Value Stream Analysis
+                </button>
+                <button onclick="navigate('pfmea')" id="btn-pfmea" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">⚠️</span> 6. PFMEA Risk Log
+                </button>
+                <button onclick="navigate('pricing')" id="btn-pricing" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">💰</span> 7. Economic Analysis
+                </button>
+                <button onclick="navigate('reflection')" id="btn-reflection" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">🧠</span> 8. Critical Reflection
+                </button>
+                <button onclick="navigate('refs')" id="btn-refs" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">📚</span> 9. References
+                </button>
+            </nav>
+
+            <div class="mt-auto pt-6 border-t border-slate-100">
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p class="text-[9px] font-bold text-slate-400 uppercase mb-2">MSc Project Progress</p>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <p class="text-[10px] text-slate-600 font-bold uppercase tracking-tight italic">Root Asset Sync Verified</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-x-hidden">
+            
+            <header class="bg-slate-900 text-white p-10 lg:p-20 relative overflow-hidden">
+                <div class="max-w-4xl relative z-10">
+                    <span class="inline-block bg-blue-600 text-[10px] font-bold uppercase px-3 py-1 rounded-full mb-6 tracking-widest">Master's Dissertation | MMU</span>
+                    <h2 class="text-4xl lg:text-7xl font-black tracking-tight leading-[0.85] mb-8">
+                        The Inflexibility <br/><span class="text-blue-500 italic">of Tradition.</span>
+                    </h2>
+                    <p class="text-slate-400 text-xl leading-relaxed max-w-2xl font-light">
+                        Technical logs and industrial scaling data for the PhonesRus hybrid manufacturing framework.
+                    </p>
+                </div>
+                <div class="absolute right-0 bottom-0 opacity-10 font-black text-[15rem] -mb-20 -mr-10 select-none pointer-events-none">MSc</div>
+            </header>
+
+            <div class="p-6 lg:p-16">
+                
+                <!-- 1. STRATEGIC CONTEXT -->
+                <section id="context" class="space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">1. The Injection Moulding Bottleneck</h3>
+                        <p>An imaginary phone manufacturer (phonesRus) has approached us to produce the top and bottom casings for their mobile devices. Typically the main manufacturing method for the production of mobile phone casings is injection moulding and with good reason. Injection moulding has significant benefits such as high repeatability and high speed manufacturing however the potential disadvantages can be devastating. Adhesives Technologies (Henkel) developments offer some insight into what can happen when injection moulding goes wrong. To achieve strong bonding properties, highly reactive additives are required which, in this case, became overly corrosive when heated. The additives began ‘consuming’ the tooling effectively altering the precision of the mould resulting in incompatible components. Turn around for rebuilt tools resulted in a delay where a 12 week lead time became a 24 week delay.</p>
+                        <p>Incorporating industry 4.0 technologies such as additive manufacturing and digital twins can help to stretch the possibilities rendered impossible by the rigidity of injection moulding (Lasi et al., 2014). Merit3D used photopolymer carbon DLS (digital light synthesis) to rapidly prototype iterations in a single day. Within three days the hangers were on the production line using high speed printing technology to print thousands of parts per day. Merit3D proved that additive manufacturing can replace traditional manufacturing methods such as injection moulding and as such, it will be the method of manufacture that we will utilise in this undertaking.</p>
+                    </div>
+                    <div class="chart-container glass-card rounded-3xl p-8 shadow-inner"><canvas id="chart-fin"></canvas></div>
+                </section>
+
+                <!-- 2. ENGINEERING & DESIGN -->
+                <section id="engineering" class="hide space-y-16">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">2. Engineering & Design Logs</h3>
+                        <p>Today I began the task of deciphering the provided engineering drawings of both the top and bottom casings. From the main drawing I decided to only model a quarter of the model and subsequently use the mirror tool to simplify the process. I entered the sketch environment and drew a rectangle of dimensions 57x30 to represent the quarter of the body. Side arcs center of 89.009 from the left with an arc radius of 85.76. Top and bottom arcs center of 364.723 and arc radius of 362.47.</p>
+                    </div>
+
+                    <!-- MANUFACTURING TIMELAPSES -->
+                    <div class="space-y-6 mt-10">
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Technical Process Timelapses</h4>
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-3xl overflow-hidden bg-white p-4">
+                                <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
+                                    <video controls muted loop class="w-full h-full object-cover">
+                                        <source src="Bottom Case screen recording.mov" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <div class="mt-4 p-2">
+                                    <h5 class="font-bold text-sm uppercase tracking-widest">Bottom Case Production</h5>
+                                    <p class="text-xs text-slate-500 mt-1 italic">Real-time execution of the V7 Hero part parameters. 14h print compressed to 30s.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card rounded-3xl overflow-hidden bg-white p-4">
+                                <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
+                                    <video controls muted loop class="w-full h-full object-cover">
+                                        <source src="Top case screen recording.mov" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <div class="mt-4 p-2">
+                                    <h5 class="font-bold text-sm uppercase tracking-widest">Top Case Production</h5>
+                                    <p class="text-xs text-slate-500 mt-1 italic">Visualizing the bridging optimization in action for the upper housing geometry.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CASE ITERATION ENGINE -->
+                    <div class="space-y-6 mt-16">
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Physical Casing Iterations</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setIter('v1')" id="pill-v1" class="iteration-pill active px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">V1</button>
+                            <button onclick="setIter('v2')" id="pill-v2" class="iteration-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">V2</button>
+                            <button onclick="setIter('v4')" id="pill-v4" class="iteration-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">V4</button>
+                            <button onclick="setIter('v5')" id="pill-v5" class="iteration-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">V5</button>
+                            <button onclick="setIter('v51')" id="pill-v51" class="iteration-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">V5.1</button>
+                            <button onclick="setIter('v6')" id="pill-v6" class="iteration-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">V6</button>
+                            <button onclick="setIter('v7')" id="pill-v7" class="iteration-pill px-4 py-2 rounded-full border border-blue-200 text-blue-600 bg-blue-50 text-xs font-bold uppercase italic">V7 HERO</button>
+                        </div>
+
+                        <div class="glass-card rounded-3xl overflow-hidden grid lg:grid-cols-2 min-h-[550px]">
+                            <div class="p-10 lg:p-14 flex flex-col justify-center bg-white">
+                                <h5 id="iter-title" class="text-3xl font-black mb-6 italic tracking-tight uppercase">V1: Support Welding</h5>
+                                <div id="iter-desc" class="text-slate-600 leading-relaxed text-md space-y-4 text-justify"></div>
+                                <div class="mt-8 p-4 bg-slate-50 rounded-xl border border-slate-100 font-mono text-[10px] text-slate-500 uppercase tracking-tighter">
+                                    <p id="iter-meta">// FEATURE: FLAT_BACK | STATUS: FAILED_POST_PROC</p>
+                                </div>
+                            </div>
+                            <div class="bg-slate-100 p-8 flex items-center justify-center">
+                                <div class="bg-white p-4 rounded-2xl shadow-xl w-full max-w-sm border border-slate-200">
+                                    <img id="iter-img" src="V1.jpeg" class="w-full h-72 object-contain rounded-lg mb-4 bg-slate-50" onerror="this.src='https://placehold.co/400x500/0f172a/white?text=Verify+Filename+on+GitHub'">
+                                    <p class="text-[9px] text-center font-bold text-slate-400 uppercase tracking-widest italic">Dissertation Evidence Log</p>
+                                    <div id="iter-gallery" class="hide mt-4 flex gap-2 flex-wrap justify-center"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ARACHNE ENGINE SECTION -->
+                    <div class="space-y-6 mt-20">
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Slicing Engine Optimization: Arachne</h4>
+                        <div class="prose prose-slate max-w-4xl">
+                            <p>One of the biggest technical leaps for the snap-fits was switching to the Arachne wall engine. Traditional slicing engines often struggled with the tiny, precise geometry of the casing clips, either over-extruding or creating weak "thin-walls." By using Arachne, the slicer could variably adjust the line width, making the clips much more resilient to the physical stress of the Festo press station.</p>
+                        </div>
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-3xl overflow-hidden bg-white p-4">
+                                <img src="Snapfit%20without%20Arachne.png" class="w-full h-64 object-cover rounded-xl" onerror="this.src='https://placehold.co/600x400/slate/white?text=Old+Engine'">
+                                <p class="text-[10px] font-bold text-slate-400 uppercase mt-4 text-center">Standard Wall Engine (Clunky & Brittle)</p>
+                            </div>
+                            <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 border-2 border-blue-500">
+                                <img src="Snapfit%20with%20Arachne.png" class="w-full h-64 object-cover rounded-xl" onerror="this.src='https://placehold.co/600x400/2563eb/white?text=Arachne+Engine'">
+                                <p class="text-[10px] font-bold text-blue-600 uppercase mt-4 text-center">Arachne Engine (Variable Line Width Success)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BRIDGING ENGINE -->
+                    <div class="space-y-6 mt-20">
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Bridging Parameter Optimization</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setBridge('b1')" id="bridge-pill-b1" class="bridge-pill active px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">Test 1 (0.08mm)</button>
+                            <button onclick="setBridge('b2')" id="bridge-pill-b2" class="bridge-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">Test 2 (0.12mm)</button>
+                            <button onclick="setBridge('b3')" id="bridge-pill-b3" class="bridge-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">Test 3 (0.20mm)</button>
+                            <button onclick="setBridge('b4')" id="bridge-pill-b4" class="bridge-pill px-4 py-2 rounded-full border border-blue-200 text-blue-600 bg-blue-50 text-xs font-bold uppercase">Test 4 (WINNER)</button>
+                            <button onclick="setBridge('b5')" id="bridge-pill-b5" class="bridge-pill px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase">Test 5 (0.30mm)</button>
+                        </div>
+
+                        <div class="glass-card rounded-3xl overflow-hidden grid lg:grid-cols-2 bg-slate-50">
+                            <div class="p-10 flex flex-col justify-center">
+                                <h5 id="bridge-title" class="text-2xl font-black mb-4 uppercase italic">Test 1: Precision vs Integrity</h5>
+                                <p id="bridge-desc" class="text-slate-600 leading-relaxed text-justify"></p>
+                            </div>
+                            <div class="p-6">
+                                <img id="bridge-img" src="Bridging v1.jpg" class="w-full h-64 object-cover rounded-2xl shadow-inner border border-slate-200" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+Bridging+v1.jpg'">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: PROCESS FLOW DIAGRAM -->
+                <section id="pfd" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">3. Process Flow Diagram (PFD)</h3>
+                        <p>To ensure a high-fidelity Digital Twin, I mapped out the physical movement of parts through the entire manufacturing loop. This PFD defines the sequence of operations from the initial CAD data to the final verified assembly in the Festo Lab.</p>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-10 bg-white shadow-sm">
+                        <div class="flex flex-col gap-0">
+                            <div class="pfd-step">
+                                <div class="pfd-number">01</div>
+                                <h5 class="font-bold text-slate-800">CAD Engineering & Validation</h5>
+                                <p class="text-xs text-slate-500">Design of top/bottom casings in Siemens NX, including snap-fit tolerances and bridging geometry.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">02</div>
+                                <h5 class="font-bold text-slate-800">Slicing & G-Code Generation</h5>
+                                <p class="text-xs text-slate-500">Arachne pathing applied. Bridging parameters set to WINNER (Test 4) values.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">03</div>
+                                <h5 class="font-bold text-slate-800">3D Printer Fleet Execution</h5>
+                                <p class="text-xs text-slate-500">Staggered batch printing (14h cycle). Fleet of 35 printers ensures a part every 6 minutes.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">04</div>
+                                <div class="inline-block bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] font-black uppercase mb-1">Critical Link</div>
+                                <h5 class="font-bold text-slate-800">FIFO Buffer Entry</h5>
+                                <p class="text-xs text-slate-500">Manual post-processing (support removal) and entry into the 158-unit queue.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">05</div>
+                                <h5 class="font-bold text-slate-800">Festo Lab Automation Loop</h5>
+                                <p class="text-xs text-slate-500">Operator loading -> Press Station -> Oven Cure -> Measuring Station -> Drop.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: SIMULATION -->
+                <section id="simulation" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">4. Digital Twin Simulation</h3>
+                        <p>Using the <strong>Siemens Tecnomatix Plant Simulation</strong> software, I modeled how the Festo lab would interact with the 3D printers. A technical decision I made was to focus on <strong>process logic</strong>—modeling the part arrival frequency rather than the physical 35 printers—to keep the Digital Twin data-driven and agile.</p>
+                    </div>
+
+                    <!-- SIMULATION VIDEOS -->
+                    <div class="space-y-6">
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Simulation Execution Log</h4>
+                        <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 max-w-2xl mx-auto shadow-inner">
+                            <div class="aspect-video bg-slate-900 rounded-2xl overflow-hidden">
+                                <video controls muted loop class="w-full h-full object-contain">
+                                    <source src="Timelapse%20plant%20sim_small.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <p class="p-4 text-center text-xs text-slate-500 italic">Visualizing FIFO buffer logic and station occupancy over a 24h cycle.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
+                            <img src="Birds%20eye%20view%20of%20Plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+Birds+eye+view+of+Plant.png'">
+                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 4.1: Logical 2D Flow Map & Worker Routing</p>
+                        </div>
+                        <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
+                            <img src="3D%20view%20of%20plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+3D+view+of+plant.png'">
+                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 4.2: 3D Isometric Factory Layout</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Physical Validation: Festo Lab Performance</h4>
+                        <div class="prose prose-slate max-w-4xl">
+                            <p>There was a real "heart-in-mouth" moment during the first physical run. As you'll see in the failure video, the sagging from Version 2 completely threw off the laser alignment—the Digital Twin was telling us it was wrong, and the physical line proved it. Once we implemented the Test 4 bridging settings in Version 7, the assembly passed with 100% verification.</p>
+                        </div>
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-3xl overflow-hidden bg-slate-900">
+                                <video controls class="w-full h-64 object-cover">
+                                    <source src="Festo%20Fail.mp4" type="video/mp4">
+                                </video>
+                                <div class="p-4 bg-white border-t border-slate-100">
+                                    <h5 class="font-bold text-xs uppercase text-red-600">Physical Failure Log (V2)</h5>
+                                    <p class="text-[10px] text-slate-500 italic">Laser measurement rejected due to 0.4mm overhang sagging.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card rounded-3xl overflow-hidden bg-slate-900 border-2 border-green-500">
+                                <video controls class="w-full h-64 object-cover">
+                                    <source src="Festo%20success.mp4" type="video/mp4">
+                                </video>
+                                <div class="p-4 bg-white border-t border-slate-100">
+                                    <h5 class="font-bold text-xs uppercase text-green-600">Physical Success Log (V7)</h5>
+                                    <p class="text-[10px] text-slate-500 italic">Perfect snap-fit and measurement within ±0.05mm tolerance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Inventory Sawtooth Monitoring</h4>
+                        <div class="chart-container glass-card rounded-3xl p-10 flex flex-col gap-8 bg-white shadow-inner">
+                            <canvas id="chart-buffer"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Resource & Bottleneck Analysis</h4>
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white">
+                                <img src="Worker%20efficiency%20chart.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Worker+efficiency+chart.png'">
+                            </div>
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white">
+                                <img src="Bottleneck%20analysis.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+analysis.png'">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 5: VSM -->
+                <section id="vsm" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">5. Value Stream Analysis</h3>
+                        <p>I designed a "Leaned-out" value stream using a FIFO queue architecture to reconcile the 14-hour batch processing with the 6-minute tactical demand. By staggering the fleet of 23 printers, we created a safety float that allows us to transition from "Push" manufacturing at the printers to "Pull" manufacturing at the automation line.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="vsm-node glass-card"><p class="font-bold text-xs text-blue-600 uppercase mb-2">AM Batch</p><p class="font-mono text-2xl font-bold">14.0h</p></div>
+                        <div class="vsm-node glass-card bg-blue-50 border-blue-100"><p class="font-bold text-xs text-blue-600 uppercase mb-2">FIFO Queue</p><p class="font-mono text-2xl font-bold">6.0m</p></div>
+                        <div class="vsm-node glass-card"><p class="font-bold text-xs text-blue-600 uppercase mb-2">FESTO Station</p><p class="font-mono text-2xl font-bold">2.0m</p></div>
+                    </div>
+                </section>
+
+                <!-- SECTION 6: PFMEA -->
+                <section id="pfmea" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">6. Risk Management (PFMEA)</h3>
+                        <p>One of the highest RPN identified was IoT latency. This is why the "Standby Trigger" script is so critical—it turns a digital failure into a safe physical pause.</p>
+                    </div>
+                    <div class="glass-card rounded-3xl overflow-hidden shadow-sm">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr><th>Process</th><th>Failure Mode</th><th class="text-center">Severity</th><th class="text-center">RPN</th><th>Mitigation Strategy</th></tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr><td class="font-bold p-4">AM Production</td><td class="italic text-slate-500 p-4">Adhesion failure</td><td class="text-center">8</td><td class="text-center font-bold">64</td><td class="p-4 text-xs">Redundant printer fleet; FIFO buffer safety float.</td></tr>
+                                <tr><td class="font-bold p-4">Digital Sync</td><td class="italic text-slate-500 p-4">IoT Sensor dropout</td><td class="text-center">7</td><td class="text-center font-bold text-red-600">105</td><td class="p-4 text-xs">Exit Control "Standby Trigger" via SimTalk script.</td></tr>
+                                <tr><td class="font-bold p-4">Assembly</td><td class="italic text-slate-500 p-4">Snap-fit fracture</td><td class="text-center">9</td><td class="text-center font-bold">45</td><td class="p-4 text-xs">Arachne pathing validation; 60% Gyroid infill reinforcement.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- SECTION 7: PRICING & COST EFFECTIVENESS (NEW) -->
+                <section id="pricing" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase text-blue-600">7. Pricing & Economic Feasibility</h3>
+                        <p>Talking about money, the <strong>Elegoo Centauri Carbon 2</strong> is a total game-changer for this kind of project. When you compare it to traditional manufacturing, the difference is just staggering. A typical injection moulding tool for a complex phone casing can easily set a company back <strong>£100,000</strong> before they've even made their first part. If the design needs a tiny change (like my snap-fits did), that's another massive bill and weeks of delay.</p>
+                        <p>With the Elegoo setup, the machine cost is only around <strong>£350</strong>. Even a full industrial fleet of 35 printers would cost less than a single injection mould. PLA filament is roughly <strong>£18-20 per kilogram</strong>, which means each individual phone case costs literal pennies to produce. Because we're using a Digital Twin, I could iterate through 7 versions for the price of a few cups of coffee. This project proves that you don't need a million-pound budget to hit professional Industry 4.0 production targets; you just need smart data and agile hardware.</p>
+                    </div>
+                </section>
+
+                <!-- SECTION 8: REFLECTION -->
+                <section id="reflection" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase text-blue-600">8. Digital Twin Validation & Reflection</h3>
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-800">Critical Analysis of Resource Waste</h4>
+                        <p>Looking at the 80% worker idle time, a traditional Lean approach might see this as Muda (waste). However, in Industry 4.0, this "Idle" time is actually agility. This worker is essentially a high-level supervisor, available for intervention or fleet maintenance without stopping the 6-minute tactical takt. This shift from labor to oversight is the hallmark of the 4th industrial revolution.</p>
+
+                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-800">Sustainability & Resillience</h4>
+                        <p>By using additive manufacturing, we reduced the material waste associated with prototyping phase. This project demonstrates that Digital Twins are not just about speed, but about building a more sustainable, resilient manufacturing backbone for the future.</p>
+                    </div>
+                </section>
+
+                <!-- SECTION 9: REFERENCES -->
+                <section id="refs" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">9. References</h3>
+                        <div class="p-8 glass-card rounded-3xl bg-white text-xs space-y-4">
+                            <p>Henkel Adhesives (2024) <i>Case Study: Reducing Lead Times with Digital Manufacturing.</i> [Online] Available at: https://www.henkel-adhesives.com [Accessed: 13 May 2026].</p>
+                            <p>Lasi, H., Fettke, P., Kemper, H.G., Feld, T. and Hoffmann, M. (2014) Industry 4.0. <i>Business & Information Systems Engineering</i>, 6(4), pp.239-242.</p>
+                            <p>Merit3D (2024) <i>How Merit3D Scaled Additive Manufacturing for Industrial Production.</i> [Online] Available at: https://www.merit3d.com [Accessed: 13 May 2026].</p>
+                            <p>Siemens (2026) <i>Tecnomatix Plant Simulation Documentation: Buffer Logic & Resource Management.</i> Plano: Siemens PLM Software.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <footer class="p-10 lg:p-20 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em] italic">PhonesRus MSc Technical Portfolio | MMU Submission May 18th</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        const iterations = {
+            v1: { 
+                title: "V1: Support Welding", 
+                desc: "<p>This week I decided to print out the first prototype with the Elegoo Centauri Carbon 2 using the Elegoo slicers native settings to see how it fared. I printed the part flat on its back with full supports for the 33 x 40 mm overhang in the middle of the case. I kept the slicer settings unaltered and proceeded with the print which took 55 minutes and 40 seconds. The infill was at a default of 15% and the finish was of a very high quality however there were a few complications. The supports were essentially welded into the body of the case and that made them virtually impossible to remove, furthermore, roughly 5mm above the chamfer was a prominent ridge that did not correspond to the injection moulded part.</p>", 
+                meta: "// FEATURE: FLAT_BACK | STATUS: FAILED_POST_PROC", 
+                img: "V1.jpeg" 
+            },
+            v2: { 
+                title: "V2: Supportless Bridging", 
+                desc: "<p>Surprisingly the default overhang settings were almost adequate and showed that bridging over this distance was possible however, the layerlines were all too visible and displayed some wide interlayer gaps that exposed the infill beneath. There was also some slight sagging in the middle of the overhang due to a mixture of factors such as bridging speed, layer height and gravity. Taking this version into the festo lab, it became apparent that this sagging had an effect on the measurements that the laser was taking, effectively putting it out of range.</p>", 
+                meta: "// FEATURE: NO_SUPPORTS | STATUS: OUT_OF_TOLERANCE", 
+                img: "V2 Flat.jpeg" 
+            },
+            v4: { 
+                title: "V4: 90° Upright Orientation", 
+                desc: "<p>Investigated printing the case standing straight up at 90° with no supports. Finish was superb and looked closest to injection moulding. The issue was that the overhangs were not supported and a lot of warping took place especially at the roofs of the slots. Supports were avoided because they would get stuck in the crevices of the small holes. View the thumbnails below to see the extent of the thermal warp from different angles.</p>", 
+                meta: "// FEATURE: 90_DEGREE | STATUS: STRUCTURAL_WARP", 
+                img: "V4 upright.jpeg",
+                gallery: [
+                    {src: "V4 upright.jpeg", label: "Main"},
+                    {src: "V4 Upright hole warp.jpeg", label: "Hole Warp"},
+                    {src: "V4 upright roof warp.jpeg", label: "Roof Warp"},
+                    {src: "V4 upright wide view.jpeg", label: "Wide View"}
+                ]
+            },
+            v5: { 
+                title: "V5: 45° Upright Sagging", 
+                desc: "<p>Changing the orientation to 45 degrees fixed the overhang issue but presented sagging at the middle resulting in a curved phone case. I attributed this to the wall loop setting (set at 2) providing insufficient strength to hold its shape while still in the molten state. I increased the wall loops to 4 and infill to 20% but it made no difference; the 'banana' effect persisted due to gravity during the molten layer transition.</p>", 
+                meta: "// FEATURE: 45_DEGREE | STATUS: GEOMETRIC_FAILURE", 
+                img: "V5 standing no supports.jpeg",
+                gallery: [
+                    {src: "V5 standing no supports.jpeg", label: "Front View"},
+                    {src: "V5 curvature no supports.jpeg", label: "Banana Effect"}
+                ]
+            },
+            v51: { 
+                title: "V5.1: Revised 45° Support", 
+                desc: "<p>Tried again with supports. Again revisited with the same sagging results despite massive external scaffolding, suggesting the issue was thermal contraction related during the layer transition rather than just structural support alone. The images show that even with support, the part pulled away from the true geometry during cooling.</p>", 
+                meta: "// FEATURE: REVISED_45 | STATUS: GEOMETRIC_FAILURE", 
+                img: "V5.1 standing with supports.jpeg",
+                gallery: [
+                    {src: "V5.1 standing with supports.jpeg", label: "Scaffolding Setup"},
+                    {src: "V5.1 Curvature with supports.jpeg", label: "Persistent Curve"}
+                ]
+            },
+            v6: { 
+                title: "V6: Side-Orientation Trial", 
+                desc: "<p>Printed on its side at 45 degrees to avoid bridging entirely. Unpleasantly the worst version yet. Layer lines were prominent because the nozzle travelled along the whole length increasing their visibility. Exhibited warping and a rough finish that would fail a consumer aesthetic test.</p>", 
+                meta: "// FEATURE: SIDE_PRINT | STATUS: TEXTURE_FAILURE", 
+                img: "V6 Side.jpeg" 
+            },
+            v7: { 
+                title: "V7: The Hero Part", 
+                desc: "<p>Once the bridging was optimised (Test 4), I addressed the internal scaffolding ridge by increasing infill density to 60%. Combined with Arachne pathing for the snap-fits and a flat orientation, this iteration finally yielded the final bottom case which was successfully directed through the festo lab and validated the Digital Twin.</p>", 
+                meta: "// FEATURE: ARACHNE_LOGIC | STATUS: VERIFIED_SUCCESS", 
+                img: "V7 Hero.jpeg" 
+            }
+        };
+
+        const bridgingTests = {
+            b1: { title: "Test 1: 0.08mm Layer Height", desc: "Initial test at 0.08mm. While high precision was targeted, the bridge lacked structural integrity during cooling, resulting in filament separation and poor adhesion.", img: "Bridging v1.jpg" },
+            b2: { title: "Test 2: 0.12mm Layer Height", desc: "Slightly improved flow, but cooling fan settings were too low, causing strands to sag before solidifying across the 40mm span.", img: "Bridging v2.jpg" },
+            b3: { title: "Test 3: 0.20mm Layer Height", desc: "Increased layer height for speed. The thick extrusions failed to bridge effectively, as the increased mass caused the center to bow significantly.", img: "Bridging v3.jpg" },
+            b4: { title: "Test 4: WINNER (Optimized)", desc: "Optimized settings: 100% part cooling fan, 50mm/s bridge speed, and 0.15mm layer height. Achieved a perfectly flat bridge suitable for the FESTO laser station.", img: "Bridging v4.jpg" },
+            b5: { title: "Test 5: 0.30mm Layer Height", desc: "High layer height trial. It was observed that beyond 0.25mm, increasing the layer height further didn't really change the result, indicating physical limits of the span had been reached.", img: "Bridging v5.jpg" }
+        };
+
+        function setIter(id) {
+            const data = iterations[id];
+            if (!data) return;
+            const imgEl = document.getElementById('iter-img');
+            document.getElementById('iter-title').innerText = data.title;
+            document.getElementById('iter-desc').innerHTML = data.desc;
+            document.getElementById('iter-meta').innerText = data.meta;
+            imgEl.src = data.img;
+            
+            const galleryEl = document.getElementById('iter-gallery');
+            if (data.gallery) {
+                galleryEl.classList.remove('hide');
+                galleryEl.innerHTML = data.gallery.map((g, index) => `
+                    <button onclick="switchIterImage('${id}', ${index})" class="gallery-thumb w-16 h-16 rounded-lg border-2 ${index === 0 ? 'border-blue-600' : 'border-slate-200'} overflow-hidden">
+                        <img src="${g.src}" class="w-full h-full object-cover">
+                    </button>
+                `).join('');
+            } else {
+                galleryEl.classList.add('hide');
+            }
+            
+            document.querySelectorAll('.iteration-pill').forEach(p => p.classList.remove('active'));
+            document.getElementById('pill-' + id).classList.add('active');
+        }
+
+        function switchIterImage(id, index) {
+            const data = iterations[id];
+            const imgEl = document.getElementById('iter-img');
+            imgEl.src = data.gallery[index].src;
+            
+            document.querySelectorAll('#iter-gallery .gallery-thumb').forEach((thumb, i) => {
+                if (i === index) thumb.classList.add('border-blue-600');
+                else thumb.classList.remove('border-blue-600');
+            });
+        }
+
+        function setBridge(id) {
+            const data = bridgingTests[id];
+            if (!data) return;
+            document.getElementById('bridge-title').innerText = data.title;
+            document.getElementById('bridge-desc').innerText = data.desc;
+            document.getElementById('bridge-img').src = data.img;
+            document.querySelectorAll('.bridge-pill').forEach(p => p.classList.remove('active'));
+            document.getElementById('bridge-pill-' + id).classList.add('active');
+        }
+
+        let charts = {};
+        function navigate(sectionId) {
+            document.querySelectorAll('section').forEach(s => s.classList.add('hide'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('nav-active'));
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove('hide');
+                if (sectionId === 'simulation') setTimeout(() => { Object.values(charts).forEach(chart => chart.resize()); }, 100);
+            }
+            const btn = document.getElementById('btn-' + sectionId);
+            if (btn) btn.classList.add('nav-active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        window.onload = function() {
+            setIter('v1');
+            setBridge('b1');
+            const initChart = (id, config) => { const el = document.getElementById(id); if (el) charts[id] = new Chart(el.getContext('2d'), config); };
+            initChart('chart-fin', { type: 'bar', data: { labels: ['CAPEX (Sunk)', 'Lead Time (Days)'], datasets: [ { label: 'Injection Molding', data: [100000, 112], backgroundColor: '#94a3b8', borderRadius: 8 }, { label: 'Additive Mfg', data: [2, 3], backgroundColor: '#2563eb', borderRadius: 8 } ] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { type: 'logarithmic' } } } });
+            initChart('chart-buffer', { type: 'line', data: { labels: Array.from({length: 24}, (_, i) => `${i}h`), datasets: [ { label: 'Bottom Case (FIFO: 158)', data: [158, 140, 120, 100, 80, 60, 40, 32, 158, 140, 120, 100, 32, 158, 140, 120, 100, 158, 140, 120, 100, 80, 60, 40], borderColor: '#2563eb', fill: true, backgroundColor: 'rgba(37, 99, 235, 0.05)', tension: 0.2, pointRadius: 0 }, { label: 'Top Case (FIFO: 92)', data: [92, 80, 70, 60, 50, 40, 30, 20, 92, 80, 70, 60, 20, 92, 80, 70, 60, 92, 80, 70, 60, 50, 40, 30], borderColor: '#94a3b8', tension: 0.2, borderDash: [5, 5], pointRadius: 0 } ] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 0, max: 180 } } } });
+        }
+    </script>
+</body>
+</html>            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-active {
+            color: var(--accent-blue);
+            background-color: #eff6ff;
+            font-weight: 700;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .iteration-pill, .bridge-pill, .gallery-thumb {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .iteration-pill.active, .bridge-pill.active {
+            background-color: var(--tech-slate);
+            color: white;
+            border-color: var(--tech-slate);
+        }
+
+        .gallery-thumb.active {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .hide { display: none !important; }
+
+        .bridging-card img { height: 160px; object-fit: cover; width: 100%; border-radius: 0.5rem; background: #f1f5f9; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { background: #f8fafc; padding: 1.25rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; color: #64748b; }
         td { padding: 1.25rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
         
