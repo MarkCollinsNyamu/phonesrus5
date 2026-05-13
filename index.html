@@ -207,7 +207,7 @@
                             <div class="glass-card rounded-3xl overflow-hidden bg-white p-4">
                                 <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
                                     <video controls muted loop class="w-full h-full object-cover">
-                                        <source src="Bottom Case screen recording.mov" type="video/mp4">
+                                        <source src="Bottom%20Case%20screen%20recording.mov" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -219,7 +219,7 @@
                             <div class="glass-card rounded-3xl overflow-hidden bg-white p-4">
                                 <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
                                     <video controls muted loop class="w-full h-full object-cover">
-                                        <source src="Top case screen recording.mov" type="video/mp4">
+                                        <source src="Top%20case%20screen%20recording.mov" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -352,7 +352,7 @@
                     <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 max-w-2xl mx-auto">
                         <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
                             <video controls muted loop class="w-full h-full object-contain">
-                                <source src="Timelapse plant sim_small.mp4" type="video/mp4">
+                                <source src="Timelapse%20plant%20sim_small.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </div>
@@ -364,14 +364,271 @@
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
-                            <img src="Birds eye view of Plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+Birds+eye+view+of+Plant.png'">
+                            <img src="Birds%20eye%20view%20of%20Plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+Birds+eye+view+of+Plant.png'">
                             <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 4.1: Logical 2D Flow Map & Worker Routing</p>
                         </div>
                         <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
-                            <img src="3D view of plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+3D+view+of+plant.png'">
+                            <img src="3D%20view%20of%20plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+3D+view+of+plant.png'">
                             <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 4.2: 3D Isometric Factory Layout</p>
                         </div>
                     </div>
 
                     <div class="space-y-8 pt-10">
                         <h4 class="text-2xl font-black tracking-tight italic uppercase">Inventory Sawtooth Monitoring</h4>
+                        <div class="prose prose-slate max-w-4xl">
+                            <p>One of the most important parts of this digital twin was figuring out if the 3D printer fleet could actually keep up with the Festo line. I set up a "Sawtooth" monitoring chart to track our buffer levels. The reason it looks like a sawtooth is because of how differently these two worlds work.</p>
+                            <p>The printers work in big "Push" batches. Every 14 hours, a printer finishes 6 parts and they all get dumped into the buffer at once—that's the sharp vertical jump you see on the chart. But the Festo line is doing "Pull" manufacturing; it takes one part every 6 minutes like clockwork. That constant drain causes the slow, steady downward slope. My goal was to make sure that even at the very bottom of the "tooth," we never hit zero. If we hit zero, the Festo line "starves" and the whole factory stops.</p>
+                        </div>
+                        <div class="glass-card rounded-3xl p-10 flex flex-col gap-8 bg-white">
+                            <h4 class="font-black text-sm uppercase tracking-widest text-blue-600 italic">Live Buffer Inventory Log</h4>
+                            <div class="chart-container"><canvas id="chart-buffer"></canvas></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Resource & Bottleneck Analysis</h4>
+                        <div class="prose prose-slate max-w-4xl">
+                            <p>After running the simulation, I looked into the resource statistics to see how hard the equipment and staff were actually working. It was interesting to see that while the Oven Station and the Operator Station were the busiest parts of the loop, there's still a massive amount of "Waiting" time across the whole system.</p>
+                        </div>
+                        
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white">
+                                <img src="Worker%20efficiency%20chart.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Worker+efficiency+chart.png'">
+                                <div class="mt-6 space-y-3">
+                                    <h5 class="font-black text-xs uppercase text-blue-600 tracking-widest">Worker Statistics</h5>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The data shows the worker is "Waiting" for about 80% of the time. This confirms that the line is highly automated, but it might also mean I could give this worker more tasks, like managing the 3D printer fleet maintenance, without slowing down the operations.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white">
+                                <img src="Bottleneck%20analysis.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+analysis.png'">
+                                <div class="mt-6 space-y-3">
+                                    <h5 class="font-black text-xs uppercase text-blue-600 tracking-widest">Station Utilization</h5>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The Oven Station is the most utilized at around 15%, followed by the Operator Station. This proves that our buffer capacity of 158 units is more than enough to keep the line fed without any starving errors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 5: VSM -->
+                <section id="vsm" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">5. Value Stream Analysis</h3>
+                        <p>To reconcile the 14-hour batch processing of additive manufacturing with the 6-minute tactical demand of the FESTO automation line, I had to design a "Leaned-out" value stream. The core of this strategy was the FIFO queue architecture.</p>
+                        <p>The 14-hour recovery lead time is the main bottleneck. It creates a massive conflict between the slow, steady demand of the assembly line and the sudden, large drops from the printer fleet. By using a fleet of 23 printers for the bottom cases, we create a staggered arrival of parts. This "Staggering" is what makes the digital twin work; instead of all 138 parts arriving every 14 hours, we aim for a printer to finish every 36 minutes. Even if one printer fails, the buffer of 158 units acts as a safety float, preventing the Festo line from shutting down. This allows us to transition from "Push" manufacturing at the printers to "Pull" manufacturing at the automation line.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="vsm-node glass-card"><p class="font-bold text-xs text-blue-600 uppercase mb-2">AM Batch</p><p class="font-mono text-2xl font-bold">14.0h</p></div>
+                        <div class="vsm-node glass-card bg-blue-50 border-blue-100"><p class="font-bold text-xs text-blue-600 uppercase mb-2">FIFO Queue</p><p class="font-mono text-2xl font-bold">6.0m</p></div>
+                        <div class="vsm-node glass-card"><p class="font-bold text-xs text-blue-600 uppercase mb-2">FESTO Station</p><p class="font-mono text-2xl font-bold">2.0m</p></div>
+                    </div>
+                </section>
+
+                <!-- SECTION 6: PFMEA -->
+                <section id="pfmea" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">6. Risk Management (PFMEA)</h3>
+                        <p>Risk is inherent in any Industry 4.0 system, especially when mixing physical hardware with digital logic. Below is my Process Failure Mode and Effects Analysis (PFMEA). I focused on the "Break Points" where the system could fail silently, such as a printer failing mid-batch or a sensor lagging during high-speed assembly.</p>
+                        <p>One of the highest RPNs (Risk Priority Numbers) I identified was the IoT latency. If the digital twin isn't seeing what the physical line is doing in real-time, the buffer calculations could be wrong, leading to a line-stop. This is why the "Standby Trigger" script is so critical—it turns a digital failure into a safe physical pause.</p>
+                    </div>
+                    <div class="glass-card rounded-3xl overflow-hidden shadow-sm">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr><th>Process</th><th>Failure Mode</th><th class="text-center">Severity</th><th class="text-center">RPN</th><th>Mitigation Strategy</th></tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="font-bold p-4">AM Production</td>
+                                    <td class="italic text-slate-500 p-4">First-layer adhesion failure (Spaghetti)</td>
+                                    <td class="text-center">8</td>
+                                    <td class="text-center font-bold">64</td>
+                                    <td class="p-4 text-xs">Redundant printer fleet; FIFO buffer holds 2h safety float to allow restart without starving the line.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold p-4">Digital Sync</td>
+                                    <td class="italic text-slate-500 p-4">IoT Sensor dropout / Latency</td>
+                                    <td class="text-center">7</td>
+                                    <td class="text-center font-bold text-red-600">105</td>
+                                    <td class="p-4 text-xs">Exit Control "Standby Trigger" via SimTalk script; auto-shutdown of conveyor if data heartbeat is lost.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold p-4">Assembly</td>
+                                    <td class="italic text-slate-500 p-4">Snap-fit fracture during press</td>
+                                    <td class="text-center">9</td>
+                                    <td class="text-center font-bold">45</td>
+                                    <td class="p-4 text-xs">Arachne pathing validation in Slicer; 60% Gyroid infill for structural reinforcement to prevent brittle failure.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold p-4">Material Flow</td>
+                                    <td class="italic text-slate-500 p-4">Buffer overflow / Queue Lock</td>
+                                    <td class="text-center">4</td>
+                                    <td class="text-center font-bold">32</td>
+                                    <td class="p-4 text-xs">Physical overflow bin installed at the FIFO entry point to handle batch arrival spikes.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- SECTION 7: REFERENCES -->
+                <section id="refs" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">7. References</h3>
+                        <div class="p-8 glass-card rounded-3xl bg-white text-xs space-y-4">
+                            <p>Henkel Adhesives (2024) <i>Case Study: Reducing Lead Times with Digital Manufacturing.</i> [Online] Available at: https://www.henkel-adhesives.com [Accessed: 13 May 2026].</p>
+                            <p>Lasi, H., Fettke, P., Kemper, H.G., Feld, T. and Hoffmann, M. (2014) Industry 4.0. <i>Business & Information Systems Engineering</i>, 6(4), pp.239-242.</p>
+                            <p>Merit3D (2024) <i>How Merit3D Scaled Additive Manufacturing for Industrial Production.</i> [Online] Available at: https://www.merit3d.com [Accessed: 13 May 2026].</p>
+                            <p>Siemens (2026) <i>Tecnomatix Plant Simulation Documentation: Buffer Logic & Resource Management.</i> Plano: Siemens PLM Software.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <footer class="p-10 lg:p-20 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em] italic">PhonesRus MSc Technical Portfolio | MMU Submission May 18th</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        const v4Images = [
+            { src: "V4%20upright.jpeg", label: "Main View" },
+            { src: "V4%20Upright%20hole%20warp.jpeg", label: "Hole Warp" },
+            { src: "V4%20upright%20roof%20warp.jpeg", label: "Roof Warp" },
+            { src: "V4%20upright%20wide%20view.jpeg", label: "Wide View" }
+        ];
+
+        const iterations = {
+            v1: { 
+                title: "V1: Support Welding", 
+                desc: "<p>This week I decided to print out the first prototype with the Elegoo Centauri Carbon 2 using the Elegoo slicers native settings to see how it fared. I printed the part flat on its back with full supports for the 33 x 40 mm overhang in the middle of the case. I kept the slicer settings unaltered and proceeded with the print which took 55 minutes and 40 seconds. The infill was at a default of 15% and the finish was of a very high quality however there were a few complications. The supports were essentially welded into the body of the case and that made them virtually impossible to remove, furthermore, roughly 5mm above the chamfer was a prominent ridge that did not correspond to the injection moulded part.</p>", 
+                meta: "// FEATURE: FLAT_BACK | STATUS: FAILED_POST_PROC", 
+                img: "V1.jpeg" 
+            },
+            v2: { 
+                title: "V2: Supportless Bridging", 
+                desc: "<p>Surprisingly the default overhang settings were almost adequate and showed that bridging over this distance was possible however, the layerlines were all too visible and displayed some wide interlayer gaps that exposed the infill beneath. There was also some slight sagging in the middle of the overhang due to a mixture of factors such as bridging speed, layer height and gravity. Taking this version into the festo lab, it became apparent that this sagging had an effect on the measurements that the laser was taking, effectively putting it out of range.</p>", 
+                meta: "// FEATURE: NO_SUPPORTS | STATUS: OUT_OF_TOLERANCE", 
+                img: "V2%20Flat.jpeg" 
+            },
+            v4: { 
+                title: "V4: 90° Upright Orientation", 
+                desc: "<p>Investigated printing the case standing straight up at 90° with no supports. Finish was superb and looked closest to injection moulding. The issue was that the overhangs were not supported and a lot of warping took place especially at the roofs of the slots. Supports were avoided because they would get stuck in the crevices of the small holes. Click the thumbnails below to view warping from different angles.</p>", 
+                meta: "// FEATURE: 90_DEGREE | STATUS: STRUCTURAL_WARP", 
+                img: "V4%20upright.jpeg",
+                hasGallery: true
+            },
+            v5: { 
+                title: "V5: 45° Upright Sagging", 
+                desc: "<p>Changing the orientation to 45 degrees fixed the overhang issue but presented sagging at the middle resulting in a curved phone case. I attributed this to the wall loop setting (set at 2) providing insufficient strength to hold its shape while still in the molten state. I increased the wall loops to 4 and infill to 20% but it made no difference.</p>", 
+                meta: "// FEATURE: 45_DEGREE | STATUS: GEOMETRIC_FAILURE", 
+                img: "V5%20standing%20no%20supports.jpeg" 
+            },
+            v51: { 
+                title: "V5.1: Revised 45° Support", 
+                desc: "<p>Tried again with supports. Again revisited with the same sagging results despite external scaffolding, suggesting the issue was thermal contraction related during the layer transition.</p>", 
+                meta: "// FEATURE: REVISED_45 | STATUS: GEOMETRIC_FAILURE", 
+                img: "V5.1%20standing%20with%20supports.jpeg" 
+            },
+            v6: { 
+                title: "V6: Side-Orientation Trial", 
+                desc: "<p>Printed on its side at 45 degrees. Unpleasantly the worst version yet. Layer lines were prominent because the nozzle travelled along the whole length increasing their visibility. Exhibited warping and a rough finish.</p>", 
+                meta: "// FEATURE: SIDE_PRINT | STATUS: TEXTURE_FAILURE", 
+                img: "V6%20Side.jpeg" 
+            },
+            v7: { 
+                title: "V7: The Hero Part", 
+                desc: "<p>Once the bridging was optimised (Test 4), I addressed the internal scaffolding ridge by increasing infill density to 60%. Combined with Arachne pathing for the snap-fits and a flat orientation, this iteration finally yielded the final bottom case which was successfully directed through the festo lab and validated the Digital Twin.</p>", 
+                meta: "// FEATURE: ARACHNE_LOGIC | STATUS: VERIFIED_SUCCESS", 
+                img: "V7%20Hero.jpeg" 
+            }
+        };
+
+        const bridgingTests = {
+            b1: { title: "Test 1: 0.08mm Layer Height", desc: "Initial test at 0.08mm layer height. While high precision was targeted, the bridge lacked structural integrity during the cooling phase, resulting in filament separation and poor adhesion.", img: "Bridging%20v1.jpg" },
+            b2: { title: "Test 2: 0.12mm Layer Height", desc: "Slightly improved flow, but the cooling fan settings were too low, causing the strands to sag under their own weight before solidifying across the span.", img: "Bridging%20v2.jpg" },
+            b3: { title: "Test 3: 0.20mm Layer Height", desc: "Increased layer height for speed. The thick extrusions failed to bridge effectively, as the increased mass caused the center of the span to bow significantly.", img: "Bridging%20v3.jpg" },
+            b4: { title: "Test 4: WINNER (Optimized)", desc: "Optimized settings: 100% part cooling fan, 50mm/s bridge speed, and 0.15mm layer height. Achieved a perfectly flat bridge suitable for the FESTO laser station.", img: "Bridging%20v4.jpg" },
+            b5: { title: "Test 5: 0.30mm Layer Height", desc: "High layer height trial. It was observed that beyond 0.25mm, increasing the layer height further didn't really change the bridge result or improve efficiency, indicating the physical limits of the span had been reached.", img: "Bridging%20v5.jpg" }
+        };
+
+        function setIter(id) {
+            const data = iterations[id];
+            if (!data) return;
+            const imgEl = document.getElementById('iter-img');
+            document.getElementById('iter-title').innerText = data.title;
+            document.getElementById('iter-desc').innerHTML = data.desc;
+            document.getElementById('iter-meta').innerText = data.meta;
+            imgEl.src = data.img;
+            
+            const galleryEl = document.getElementById('v4-gallery');
+            if (data.hasGallery) {
+                galleryEl.classList.remove('hide');
+                switchV4Image(0); 
+            } else {
+                galleryEl.classList.add('hide');
+            }
+            
+            document.querySelectorAll('.iteration-pill').forEach(p => p.classList.remove('active'));
+            const pill = document.getElementById('pill-' + id);
+            if (pill) pill.classList.add('active');
+        }
+
+        function switchV4Image(index) {
+            const imgEl = document.getElementById('iter-img');
+            imgEl.src = v4Images[index].src;
+            
+            document.querySelectorAll('.gallery-thumb').forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+
+        function setBridge(id) {
+            const data = bridgingTests[id];
+            if (!data) return;
+            document.getElementById('bridge-title').innerText = data.title;
+            document.getElementById('bridge-desc').innerText = data.desc;
+            document.getElementById('bridge-img').src = data.img;
+            document.querySelectorAll('.bridge-pill').forEach(p => p.classList.remove('active'));
+            const pill = document.getElementById('bridge-pill-' + id);
+            if (pill) pill.classList.add('active');
+        }
+
+        let charts = {};
+        function navigate(sectionId) {
+            document.querySelectorAll('section').forEach(s => s.classList.add('hide'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('nav-active'));
+            
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove('hide');
+                if (sectionId === 'simulation') {
+                    setTimeout(() => {
+                        Object.values(charts).forEach(chart => chart.resize());
+                    }, 100);
+                }
+            }
+            
+            const btn = document.getElementById('btn-' + sectionId);
+            if (btn) btn.classList.add('nav-active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        window.onload = function() {
+            setIter('v1');
+            setBridge('b1');
+            const initChart = (id, config) => { 
+                const el = document.getElementById(id); 
+                if (el) charts[id] = new Chart(el.getContext('2d'), config); 
+            };
+            initChart('chart-fin', { type: 'bar', data: { labels: ['CAPEX (Sunk)', 'Lead Time (Days)'], datasets: [ { label: 'Injection Molding', data: [100000, 112], backgroundColor: '#94a3b8', borderRadius: 8 }, { label: 'Additive Mfg', data: [2, 3], backgroundColor: '#2563eb', borderRadius: 8 } ] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { type: 'logarithmic' } } } });
+            initChart('chart-buffer', { type: 'line', data: { labels: Array.from({length: 24}, (_, i) => `${i}h`), datasets: [ { label: 'Bottom Case (FIFO: 158)', data: [158, 140, 120, 100, 80, 60, 40, 32, 158, 140, 120, 100, 32, 158, 140, 120, 100, 158, 140, 120, 100, 80, 60, 40], borderColor: '#2563eb', fill: true, backgroundColor: 'rgba(37, 99, 235, 0.05)', tension: 0.2, pointRadius: 0 }, { label: 'Top Case (FIFO: 92)', data: [92, 80, 70, 60, 50, 40, 30, 20, 92, 80, 70, 60, 20, 92, 80, 70, 60, 92, 80, 70, 60, 50, 40, 30], borderColor: '#94a3b8', tension: 0.2, borderDash: [5, 5], pointRadius: 0 } ] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 0, max: 180 } } } });
+        }
+    </script>
+</body>
+</html>
