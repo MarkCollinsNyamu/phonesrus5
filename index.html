@@ -45,7 +45,7 @@
             border-left: 4px solid var(--accent-blue);
         }
 
-        .iteration-pill, .bridge-pill {
+        .iteration-pill, .bridge-pill, .gallery-thumb {
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -54,6 +54,11 @@
             background-color: var(--tech-slate);
             color: white;
             border-color: var(--tech-slate);
+        }
+
+        .gallery-thumb.active {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .hide { display: none !important; }
@@ -193,6 +198,21 @@
                                 <div class="bg-white p-4 rounded-2xl shadow-xl w-full max-w-sm border border-slate-200">
                                     <img id="iter-img" src="V1.jpeg" class="w-full h-72 object-contain rounded-lg mb-4 bg-slate-50" onerror="this.src='https://placehold.co/400x500/0f172a/white?text=Verify+Filename+on+GitHub'">
                                     <p class="text-[9px] text-center font-bold text-slate-400 uppercase tracking-widest italic">Dissertation Evidence Log</p>
+                                    <!-- V4 Gallery Thumbnails (Hidden for other iterations) -->
+                                    <div id="v4-gallery" class="hide mt-4 flex gap-2 flex-wrap justify-center">
+                                        <button onclick="switchV4Image(0)" id="v4-thumb-0" class="gallery-thumb active w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
+                                            <img src="V4%20upright.jpeg" class="w-full h-full object-cover">
+                                        </button>
+                                        <button onclick="switchV4Image(1)" id="v4-thumb-1" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
+                                            <img src="V4%20Upright%20hole%20warp.jpeg" class="w-full h-full object-cover">
+                                        </button>
+                                        <button onclick="switchV4Image(2)" id="v4-thumb-2" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
+                                            <img src="V4%20upright%20roof%20warp.jpeg" class="w-full h-full object-cover">
+                                        </button>
+                                        <button onclick="switchV4Image(3)" id="v4-thumb-3" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
+                                            <img src="V4%20upright%20wide%20view.jpeg" class="w-full h-full object-cover">
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -295,6 +315,13 @@
     </div>
 
     <script>
+        const v4Images = [
+            { src: "V4%20upright.jpeg", label: "Main View" },
+            { src: "V4%20Upright%20hole%20warp.jpeg", label: "Hole Warp" },
+            { src: "V4%20upright%20roof%20warp.jpeg", label: "Roof Warp" },
+            { src: "V4%20upright%20wide%20view.jpeg", label: "Wide View" }
+        ];
+
         const iterations = {
             v1: { 
                 title: "V1: Support Welding", 
@@ -310,9 +337,10 @@
             },
             v4: { 
                 title: "V4: 90° Upright Orientation", 
-                desc: "<p>Orientation trial at 90 degrees standing straight up. Finish was superb, but roofs of slots warped due to heat and lack of structural scaffolding.</p>", 
+                desc: "<p>Orientation trial at 90 degrees standing straight up. Finish was superb, but roofs of slots warped due to heat and lack of structural scaffolding. Click the thumbnails below to view warping from different angles.</p>", 
                 meta: "// FEATURE: 90_DEGREE | STATUS: STRUCTURAL_WARP", 
-                img: "V4%20upright.jpeg" 
+                img: "V4%20upright.jpeg",
+                hasGallery: true
             },
             v5: { 
                 title: "V5: 45° Upright Sagging", 
@@ -355,8 +383,30 @@
             document.getElementById('iter-desc').innerHTML = data.desc;
             document.getElementById('iter-meta').innerText = data.meta;
             document.getElementById('iter-img').src = data.img;
+            
+            // Show/hide gallery thumbnails for V4
+            const galleryEl = document.getElementById('v4-gallery');
+            if (data.hasGallery) {
+                galleryEl.classList.remove('hide');
+            } else {
+                galleryEl.classList.add('hide');
+            }
+            
             document.querySelectorAll('.iteration-pill').forEach(p => p.classList.remove('active'));
             document.getElementById('pill-' + id).classList.add('active');
+        }
+
+        function switchV4Image(index) {
+            const imgEl = document.getElementById('iter-img');
+            imgEl.src = v4Images[index].src;
+            
+            document.querySelectorAll('.gallery-thumb').forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
         }
 
         function setBridge(id) {
