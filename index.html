@@ -66,8 +66,8 @@
         .bridging-card img { height: 160px; object-fit: cover; width: 100%; border-radius: 0.5rem; background: #f1f5f9; }
         
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { background: #f8fafc; padding: 1.25rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; }
-        td { padding: 1.25rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+        th { background: #f8fafc; padding: 1rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; }
+        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
         
         .prose p { 
             margin-bottom: 1.5rem; 
@@ -129,7 +129,7 @@
                     <p class="text-[9px] font-bold text-slate-400 uppercase mb-2">MSc Project Progress</p>
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                        <p class="text-[10px] text-slate-600 font-bold uppercase tracking-tight italic">Asset Sync Verified</p>
+                        <p class="text-[10px] text-slate-600 font-bold uppercase tracking-tight italic">Root Asset Sync Verified</p>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
 
             <div class="p-6 lg:p-16">
                 
-                <!-- 1. STRATEGIC CONTEXT -->
+                <!-- SECTION 1: CONTEXT -->
                 <section id="context" class="space-y-12">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">1. The Injection Moulding Bottleneck</h3>
@@ -164,7 +164,7 @@
                     <div class="chart-container glass-card rounded-3xl p-8 shadow-inner"><canvas id="chart-fin"></canvas></div>
                 </section>
 
-                <!-- 2. ENGINEERING & DESIGN -->
+                <!-- SECTION 2: ENGINEERING -->
                 <section id="engineering" class="hide space-y-16">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">2. Engineering & Design Logs</h3>
@@ -194,22 +194,22 @@
                             </div>
                             <div class="bg-slate-100 p-8 flex items-center justify-center">
                                 <div class="bg-white p-4 rounded-2xl shadow-xl w-full max-w-sm border border-slate-200">
-                                    <img id="iter-img" src="images/V1.jpeg" class="w-full h-72 object-contain rounded-lg mb-4 bg-slate-50" onerror="this.src='https://placehold.co/400x500/0f172a/white?text=Verify+Filename+on+GitHub'">
+                                    <img id="iter-img" src="V1.jpeg" class="w-full h-72 object-contain rounded-lg mb-4 bg-slate-50" onerror="this.src='https://placehold.co/400x500/0f172a/white?text=Verify+Filename+on+GitHub'">
                                     <p class="text-[9px] text-center font-bold text-slate-400 uppercase tracking-widest italic">Dissertation Evidence Log</p>
                                     
-                                    <!-- V4 Gallery Thumbnails (only shows when V4 is selected) -->
+                                    <!-- V4 Gallery Thumbnails -->
                                     <div id="v4-gallery" class="hide mt-4 flex gap-2 flex-wrap justify-center">
                                         <button onclick="switchV4Image(0)" id="v4-thumb-0" class="gallery-thumb active w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="images/V4%20upright.jpeg" class="w-full h-full object-cover">
+                                            <img src="V4%20upright.jpeg" class="w-full h-full object-cover">
                                         </button>
                                         <button onclick="switchV4Image(1)" id="v4-thumb-1" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="images/V4%20Upright%20hole%20warp.jpeg" class="w-full h-full object-cover">
+                                            <img src="V4%20Upright%20hole%20warp.jpeg" class="w-full h-full object-cover">
                                         </button>
                                         <button onclick="switchV4Image(2)" id="v4-thumb-2" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="images/V4%20upright%20roof%20warp.jpeg" class="w-full h-full object-cover">
+                                            <img src="V4%20upright%20roof%20warp.jpeg" class="w-full h-full object-cover">
                                         </button>
                                         <button onclick="switchV4Image(3)" id="v4-thumb-3" class="gallery-thumb w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
-                                            <img src="images/V4%20upright%20wide%20view.jpeg" class="w-full h-full object-cover">
+                                            <img src="V4%20upright%20wide%20view.jpeg" class="w-full h-full object-cover">
                                         </button>
                                     </div>
                                 </div>
@@ -234,7 +234,7 @@
                                 <p id="bridge-desc" class="text-slate-600 leading-relaxed text-justify"></p>
                             </div>
                             <div class="p-6">
-                                <img id="bridge-img" src="images/Bridging_v1.jpg" class="w-full h-64 object-cover rounded-2xl shadow-inner border border-slate-200" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+Bridging_v1.jpg'">
+                                <img id="bridge-img" src="Bridging%20v1.jpg" class="w-full h-64 object-cover rounded-2xl shadow-inner border border-slate-200" onerror="this.src='https://placehold.co/600x400/slate/white?text=Check+Bridging+v1.jpg'">
                             </div>
                         </div>
                     </div>
@@ -249,11 +249,11 @@
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="glass-card rounded-3xl overflow-hidden p-2">
-                            <img src="images/Tecnomatix_2D.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Tecnomatix_2D.png'">
+                            <img src="Tecnomatix%202D.jpeg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Check+Tecnomatix+2D.jpeg'">
                             <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.1: Logical 2D Flow Map</p>
                         </div>
                         <div class="glass-card rounded-3xl overflow-hidden p-2">
-                            <img src="images/Tecnomatix_3D.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Tecnomatix_3D.png'">
+                            <img src="Tecnomatix%203D.jpeg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Check+Tecnomatix+3D.jpeg'">
                             <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.2: Spatial 3D Layout</p>
                         </div>
                     </div>
@@ -316,10 +316,10 @@
 
     <script>
         const v4Images = [
-            { src: "images/V4%20upright.jpeg", label: "Main View" },
-            { src: "images/V4%20Upright%20hole%20warp.jpeg", label: "Hole Warp" },
-            { src: "images/V4%20upright%20roof%20warp.jpeg", label: "Roof Warp" },
-            { src: "images/V4%20upright%20wide%20view.jpeg", label: "Wide View" }
+            { src: "V4%20upright.jpeg", label: "Main View" },
+            { src: "V4%20Upright%20hole%20warp.jpeg", label: "Hole Warp" },
+            { src: "V4%20upright%20roof%20warp.jpeg", label: "Roof Warp" },
+            { src: "V4%20upright%20wide%20view.jpeg", label: "Wide View" }
         ];
 
         const iterations = {
@@ -327,53 +327,53 @@
                 title: "V1: Support Welding", 
                 desc: "<p>This week I decided to print out the first prototype with the Elegoo Centauri Carbon 2 using the Elegoo slicers native settings to see how it fared. I printed the part flat on its back with full supports for the 33 x 40 mm overhang in the middle of the case. I kept the slicer settings unaltered and proceeded with the print which took 55 minutes and 40 seconds. The infill was at a default of 15% and the finish was of a very high quality however there were a few complications. The supports were essentially welded into the body of the case and that made them virtually impossible to remove, furthermore, roughly 5mm above the chamfer was a prominent ridge that did not correspond to the injection moulded part.</p>", 
                 meta: "// FEATURE: FLAT_BACK | STATUS: FAILED_POST_PROC", 
-                img: "images/V1.jpeg" 
+                img: "V1.jpeg" 
             },
             v2: { 
                 title: "V2: Supportless Bridging", 
                 desc: "<p>Surprisingly the default overhang settings were almost adequate and showed that bridging over this distance was possible however, the layerlines were all too visible and displayed some wide interlayer gaps that exposed the infill beneath. There was also some slight sagging in the middle of the overhang due to a mixture of factors such as bridging speed, layer height and gravity. Taking this version into the festo lab, it became apparent that this sagging had an effect on the measurements that the laser was taking, effectively putting it out of range.</p>", 
                 meta: "// FEATURE: NO_SUPPORTS | STATUS: OUT_OF_TOLERANCE", 
-                img: "images/V2%20Flat.jpeg" 
+                img: "V2%20Flat.jpeg" 
             },
             v4: { 
                 title: "V4: 90° Upright Orientation", 
-                desc: "<p>Orientation trial at 90 degrees standing straight up. Finish was superb, but roofs of slots warped due to heat and lack of structural scaffolding. Click the thumbnails below to view warping from different angles.</p>", 
+                desc: "<p>Investigated printing the case standing straight up at 90° with no supports. Finish was superb and looked closest to injection moulding. The issue was that the overhangs were not supported and a lot of warping took place especially at the roofs of the slots. Supports were avoided because they would get stuck in the crevices of the small holes. Click the thumbnails below to view warping from different angles.</p>", 
                 meta: "// FEATURE: 90_DEGREE | STATUS: STRUCTURAL_WARP", 
-                img: "images/V4%20upright.jpeg",
+                img: "V4%20upright.jpeg",
                 hasGallery: true
             },
             v5: { 
                 title: "V5: 45° Upright Sagging", 
                 desc: "<p>Changing the orientation to 45 degrees fixed the overhang issue but presented sagging at the middle resulting in a curved phone case. I attributed this to the wall loop setting (set at 2) providing insufficient strength to hold its shape while still in the molten state. I increased the wall loops to 4 and infill to 20% but it made no difference.</p>", 
                 meta: "// FEATURE: 45_DEGREE | STATUS: GEOMETRIC_FAILURE", 
-                img: "images/V5%20standing%20no%20supports.jpeg" 
+                img: "V5%20standing%20no%20supports.jpeg" 
             },
             v51: { 
                 title: "V5.1: Revised 45° Support", 
                 desc: "<p>Tried again with supports. Again revisited with the same sagging results despite external scaffolding, suggesting the issue was thermal contraction related during the layer transition.</p>", 
                 meta: "// FEATURE: REVISED_45 | STATUS: GEOMETRIC_FAILURE", 
-                img: "images/V5.1%20standing%20with%20supports.jpeg" 
+                img: "V5.1%20standing%20with%20supports.jpeg" 
             },
             v6: { 
                 title: "V6: Side-Orientation Trial", 
                 desc: "<p>Printed on its side at 45 degrees. Unpleasantly the worst version yet. Layer lines were prominent because the nozzle travelled along the whole length increasing their visibility. Exhibited warping and a rough finish.</p>", 
                 meta: "// FEATURE: SIDE_PRINT | STATUS: TEXTURE_FAILURE", 
-                img: "images/V6%20Side.jpeg" 
+                img: "V6%20Side.jpeg" 
             },
             v7: { 
                 title: "V7: The Hero Part", 
-                desc: "<p>The final verified part. Optimized bridging speed (Test 4), 60% Gyroid infill for internal scaffolding, and Arachne pathing for snap-fits. Successfully passed all automation validation steps in the lab.</p>", 
+                desc: "<p>Once the bridging was optimised (Test 4), I addressed the internal scaffolding ridge by increasing infill density to 60%. Combined with Arachne pathing for the snap-fits and a flat orientation, this iteration finally yielded the final bottom case which was successfully directed through the festo lab and validated the Digital Twin.</p>", 
                 meta: "// FEATURE: ARACHNE_LOGIC | STATUS: VERIFIED_SUCCESS", 
-                img: "images/V7%20Hero.jpeg" 
+                img: "V7%20Hero.jpeg" 
             }
         };
 
         const bridgingTests = {
-            b1: { title: "Test 1: 0.08mm Layer Height", desc: "Initial test at 0.08mm layer height. While high precision was targeted, the bridge lacked structural integrity during the cooling phase, resulting in filament separation and poor adhesion.", img: "images/Bridging_v1.jpg" },
-            b2: { title: "Test 2: 0.12mm Layer Height", desc: "Slightly improved flow, but the cooling fan settings were too low, causing the strands to sag under their own weight before solidifying across the span.", img: "images/Bridging_v2.jpg" },
-            b3: { title: "Test 3: 0.20mm Layer Height", desc: "Increased layer height for speed. The thick extrusions failed to bridge effectively, as the increased mass caused the center of the span to bow significantly.", img: "images/Bridging_v3.jpg" },
-            b4: { title: "Test 4: WINNER (Optimized)", desc: "The successful setting. Fans set to 100%, bridge flow rate reduced to 95%, and travel speed increased to 50mm/s for the span. Perfectly flat bridge achieved.", img: "images/Bridging_v4.jpg" },
-            b5: { title: "Test 5: 0.30mm Layer Height", desc: "High layer height trial. It was observed that beyond 0.25mm, increasing the layer height further didn't really change the bridge result or improve efficiency, indicating the physical limits of the span had been reached.", img: "images/Bridging_v5.jpg" }
+            b1: { title: "Test 1: 0.08mm Layer Height", desc: "Initial test at 0.08mm layer height. While high precision was targeted, the bridge lacked structural integrity during the cooling phase, resulting in filament separation and poor adhesion.", img: "Bridging%20v1.jpg" },
+            b2: { title: "Test 2: 0.12mm Layer Height", desc: "Slightly improved flow, but the cooling fan settings were too low, causing the strands to sag under their own weight before solidifying across the span.", img: "Bridging%20v2.jpg" },
+            b3: { title: "Test 3: 0.20mm Layer Height", desc: "Increased layer height for speed. The thick extrusions failed to bridge effectively, as the increased mass caused the center of the span to bow significantly.", img: "Bridging%20v3.jpg" },
+            b4: { title: "Test 4: WINNER (Optimized)", desc: "Optimized settings: 100% part cooling fan, 50mm/s bridge speed, and 0.15mm layer height. Achieved a perfectly flat bridge suitable for the FESTO laser station.", img: "Bridging%20v4.jpg" },
+            b5: { title: "Test 5: 0.30mm Layer Height", desc: "High layer height trial. It was observed that beyond 0.25mm, increasing the layer height further didn't really change the bridge result or improve efficiency, indicating the physical limits of the span had been reached.", img: "Bridging%20v5.jpg" }
         };
 
         function setIter(id) {
@@ -388,7 +388,7 @@
             const galleryEl = document.getElementById('v4-gallery');
             if (data.hasGallery) {
                 galleryEl.classList.remove('hide');
-                switchV4Image(0); // Reset to first image in gallery
+                switchV4Image(0); 
             } else {
                 galleryEl.classList.add('hide');
             }
