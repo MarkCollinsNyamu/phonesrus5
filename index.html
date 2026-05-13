@@ -119,7 +119,6 @@
 
     <div class="min-h-screen flex flex-col lg:flex-row">
         
-        <!-- Sidebar Navigation -->
         <aside class="lg:w-80 bg-white border-r border-slate-200 p-6 flex flex-col gap-8 z-50 lg:h-screen lg:sticky lg:top-0">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black italic shadow-lg">PR</div>
@@ -170,7 +169,6 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="flex-1 overflow-x-hidden">
             
             <header class="bg-slate-900 text-white p-10 lg:p-20 relative overflow-hidden">
@@ -219,7 +217,6 @@
                                 <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
                                     <video controls muted loop class="w-full h-full object-cover">
                                         <source src="Bottom Case screen recording.mov" type="video/mp4">
-                                        Your browser does not support the video tag.
                                     </video>
                                 </div>
                                 <div class="mt-4 p-2">
@@ -231,7 +228,6 @@
                                 <div class="aspect-video bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden">
                                     <video controls muted loop class="w-full h-full object-cover">
                                         <source src="Top case screen recording.mov" type="video/mp4">
-                                        Your browser does not support the video tag.
                                     </video>
                                 </div>
                                 <div class="mt-4 p-2">
@@ -336,57 +332,22 @@
                         <p>Once I confirmed the fit of both the top and bottom parts, it was time to explore the feasibility of expanding this process by an industrial scale; 100,000 parts (50,000 full sets) a year. Using the Siemens Tecnomatix Plant Simulation software, I modeled how the Festo lab would interact with the 3d printers to investigate the process. First I needed to determine the number of printers that would be required for this process. An assumption of a 250 day industrial calendar was made to account for UK bank holidays, downtime, annual leave and weekends. Otherwise the plant would function on a 24/7 basis. A 10% failure factor was implemented to account for any failed prints as well as an effective availability factor of 95% which was used to estimate the actual uptime of the printers.</p>
                         
                         <div class="p-8 bg-slate-900 rounded-3xl text-blue-400 font-mono text-[11px] leading-relaxed shadow-xl mb-12">
-                            <p>// 1. Global Fleet Capacity Formula</p>
+                            <p>// Fleet Capacity Calculation Data</p>
                             <p>Required Fleet = (Annual Volume × Print Time (mins) × Scrap Factor (1.11)) / Operational Minutes per Machine</p>
-                            <p class="mt-4">// 2. Bottom Cases (50,000 units)</p>
+                            <p class="mt-4">// Bottom Case Fleet (23 Units Required)</p>
                             <p>Total Load: 50,000 × 139 mins × 1.11 = 7,714,500 total load minutes</p>
-                            <p>Required Units: 7,714,500 / 342,000 = 22.55 (23 Units Required)</p>
-                            <p class="mt-4">// 3. Top Cases (50,000 units)</p>
+                            <p class="mt-4">// Top Case Fleet (12 Units Required)</p>
                             <p>Total Load: 50,000 × 73.8 mins × 1.11 = 4,095,900 total load minutes</p>
-                            <p>Required Units: 4,095,900 / 342,000 = 11.97 (12 Units Required)</p>
                         </div>
 
-                        <p>The festo simulation was designed such that 23 printers would be used to print the bottom cases and 12 printers would be used to print the top cases. The bottom cases required measurement at the measuring station whereas the top cases did not. From this I gathered that I could create two sources, one that fed into the mag station (bottom cases), and one that fed into the operator station (top cases). Each source assumed a rate of production of 6.04 min and 6.15 min per bottom and top part respectively.</p>
-                        
-                        <p>This may sound counterintuitive because the printers technically take roughly 14hrs to print a batch of 6 bottom cases however, by employing a staggered approach and adding a buffer after each source, a steady stream of parts could be produced roughly every 6 minutes. A buffer should contain at least a whole fleet's worth of parts to account for a possible failure in the staggered system.</p>
-
-                        <div class="grid lg:grid-cols-2 gap-8 my-8">
-                            <div class="p-6 bg-white border border-slate-200 rounded-2xl">
-                                <h5 class="font-bold text-blue-600 uppercase text-xs mb-4">Bottom Case Buffer Logic</h5>
-                                <ul class="text-xs space-y-2 text-slate-500">
-                                    <li>Fleet Batch: 23 printers × 6 parts = 138 parts</li>
-                                    <li>Recovery Lead Time: 14 hours (Total reprint time)</li>
-                                    <li>Consumption Rate: 10 parts/hour</li>
-                                    <li>Safety Float (2h): 20 units</li>
-                                    <li class="font-bold text-slate-800">Total Buffer Capacity: 158 units</li>
-                                </ul>
-                            </div>
-                            <div class="p-6 bg-white border border-slate-200 rounded-2xl">
-                                <h5 class="font-bold text-blue-600 uppercase text-xs mb-4">Top Case Buffer Logic</h5>
-                                <ul class="text-xs space-y-2 text-slate-500">
-                                    <li>Fleet Batch: 12 printers × 6 parts = 72 parts</li>
-                                    <li>Recovery Lead Time: 73.8 minutes</li>
-                                    <li>Consumption Rate: 10 parts/hour</li>
-                                    <li>Safety Float (2h): 20 units</li>
-                                    <li class="font-bold text-slate-800">Total Buffer Capacity: 92 units</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p>The buffer capacity will be maintained by IoT sensors that will be triggered if the capacity reaches an 80% reduction by which a signal will be sent to a standby printer that will print until the levels reach 50% reduction. This ensuring that the line never "starves" while also avoiding excessive overproduction.</p>
+                        <p>The simulation was designed so that the two sources (bottom and top cases) feed into the Mag Station and Operator Station respectively. Each source assumed a rate of production of 6.04 min and 6.15 min. This staggered approach allows for a constant 6-minute tactical takt time, despite the long 14-hour physical print cycle for the bottom case batch.</p>
                     </div>
 
-                    <!-- SIMULATION VIDEOS -->
-                    <div class="space-y-6">
-                        <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Simulation Execution Log</h4>
-                        <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 max-w-2xl mx-auto shadow-inner">
-                            <div class="aspect-video bg-slate-900 rounded-2xl overflow-hidden">
-                                <video controls muted loop class="w-full h-full object-contain">
-                                    <source src="Timelapse plant sim_small.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <p class="p-4 text-center text-xs text-slate-500 italic">Visualizing FIFO buffer logic and station occupancy over a 24h cycle.</p>
-                        </div>
+                    <div class="glass-card rounded-3xl overflow-hidden bg-white p-4 max-w-2xl mx-auto shadow-inner">
+                        <video controls muted loop class="w-full h-full object-contain rounded-2xl">
+                            <source src="Timelapse plant sim_small.mp4" type="video/mp4">
+                        </video>
+                        <p class="p-4 text-center text-xs text-slate-500 italic">Tecnomatix Operational Loop (24h compressed cycle)</p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
@@ -395,24 +356,45 @@
                     </div>
 
                     <div class="space-y-8 pt-10">
-                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Physical Validation: Festo Lab performance</h4>
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Inventory Sawtooth Monitoring & Maintenance Logic</h4>
                         <div class="prose prose-slate max-w-4xl">
-                            <p>There was a real "heart-in-mouth" moment during the first physical run. As you'll see in the failure video, the sagging from Version 2 completely threw off the laser alignment—the Digital Twin was telling us it was wrong, and the physical line proved it. Once we implemented the Test 4 bridging settings in Version 7, the assembly passed with 100% verification.</p>
+                            <p>The "Live Buffer Inventory Log" below visualizes the sawtooth pattern that ensures the Festo line never starves. The vertical jumps represent the sudden arrival of 3D printed batches, while the downward slope is the 6-minute "Pull" from the assembly line.</p>
+                            <p>To maintain these levels automatically, I implemented IoT logic in the digital twin: if the buffer capacity reaches an 80% reduction, a signal is triggered to activate a standby printer. This standby unit continues to produce until levels return to a 50% reduction. For the bottom cases, the 158-unit buffer provides a critical safety float, covering the 14-hour recovery lead time required for a full batch reprint in case of a spaghetti failure.</p>
                         </div>
+                        <div class="chart-container glass-card rounded-3xl p-10 bg-white shadow-inner">
+                            <canvas id="chart-buffer"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Resource Performance & Efficiency Analysis</h4>
+                        <div class="prose prose-slate max-w-4xl">
+                            <p>By analyzing the "Resource Statistics" from the simulation, I was able to identify how utilized each station was. Interestingly, the Oven Station is the most utilized at roughly 15%, with the remaining stations showing low activity. This means the system is currently over-specified for the 6-minute takt time, allowing for significant future scalability or maintenance windows without stopping production.</p>
+                        </div>
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white border border-slate-100">
+                                <img src="Worker efficiency chart.png" class="w-full rounded-xl" onerror="this.src='https://placehold.co/600x400/slate/white?text=Worker+Efficiency'">
+                                <div class="mt-6 space-y-3">
+                                    <h5 class="font-bold text-xs uppercase text-blue-600">Worker Utilization Analysis</h5>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The data confirms the worker is "Waiting" for about 80% of the shift. This high idle time validates that the automation loop is functioning effectively; the human element is only required for intervention and broker-managed loading. This suggests the worker can easily oversee multiple assembly loops or maintain the 3D printer fleet.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white border border-slate-100">
+                                <img src="Bottleneck analysis.png" class="w-full rounded-xl" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+Analysis'">
+                                <div class="mt-6 space-y-3">
+                                    <h5 class="font-bold text-xs uppercase text-blue-600">Station Bottleneck Statistics</h5>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The resource statistics confirm that the system is lean. The "Working" status (green) across all stations is low, proving that our buffer of 158 units is sufficient to prevent machine starvation. The Oven Station acts as the tactical bottleneck, but even at its peak, it has over 80% capacity remaining.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Physical Validation: Festo Lab performance</h4>
                         <div class="grid lg:grid-cols-2 gap-8">
                             <div class="glass-card rounded-3xl overflow-hidden bg-slate-900"><video controls class="w-full h-64 object-cover"><source src="Festo Fail.mp4" type="video/mp4"></video><div class="p-4 bg-white"><h5 class="font-bold text-xs uppercase text-red-600">V2 Failure (Overhang Sag)</h5></div></div>
                             <div class="glass-card rounded-3xl overflow-hidden bg-slate-900 border-2 border-green-500"><video controls class="w-full h-64 object-cover"><source src="Festo success.mp4" type="video/mp4"></video><div class="p-4 bg-white"><h5 class="font-bold text-xs uppercase text-green-600">V7 Success (Verified)</h5></div></div>
                         </div>
-                    </div>
-
-                    <div class="glass-card rounded-3xl p-10 bg-white mt-12">
-                        <h4 class="font-black text-sm uppercase tracking-widest text-blue-600 italic">Inventory Sawtooth Monitoring</h4>
-                        <div class="chart-container"><canvas id="chart-buffer"></canvas></div>
-                    </div>
-
-                    <div class="grid lg:grid-cols-2 gap-8 pt-10">
-                        <img src="Worker efficiency chart.png" class="glass-card rounded-3xl p-6 bg-white border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Efficiency+Chart'">
-                        <img src="Bottleneck analysis.png" class="glass-card rounded-3xl p-6 bg-white border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+Chart'">
                     </div>
                 </section>
 
@@ -458,7 +440,8 @@
                 <section id="reflection" class="hide space-y-12">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase text-blue-600">8. Reflection</h3>
-                        <p>Looking back at the whole loop, from the first "support welding" disaster to the final Festo pass, it's clear that the Digital Twin isn't just a fancy animation—it's a tool for predicting real-world failure. Seeing the 80% worker idle time in the stats was interesting; it made me realize the worker isn't just a laborer anymore; they are a supervisor. They handle the fleet, clear the jams, and keep the data accurate. It's a huge shift in how we think about factory work, and it's what makes this Industry 4.0 approach so resilient.</p>
+                        <p>This implementation has demonstrated the value of Digital Twins as a predictive tool rather than a retrospective visual. By integrating the physical constraints of the Elegoo Centauri Carbon 2—specifically the bridging limits and thermal contraction issues—into the Tecnomatix simulation, I was able to model a workflow that accurately reflects real-world performance. The simulation data proved that staggering batch deliveries into a FIFO buffer is the only way to reconcile slow additive cycles with fast tactical assembly.</p>
+                        <p>Analyzing the worker statistics provided a deeper insight into the shifting role of human labor in Industry 4.0. The 80% idle time observed isn't a failure of efficiency, but rather an indicator of a highly robust automated loop where the human serves as a supervisor and fleet maintainer. Ultimately, this project shows that the bi-directional flow of data between physical testing (like the Festo lab failures) and digital modeling is what allows for a resilient manufacturing system that can hit industrial targets without the inflexible costs of traditional methods.</p>
                     </div>
                 </section>
 
