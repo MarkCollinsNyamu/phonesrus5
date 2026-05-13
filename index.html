@@ -66,7 +66,7 @@
         .bridging-card img { height: 160px; object-fit: cover; width: 100%; border-radius: 0.5rem; background: #f1f5f9; }
         
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { background: #f8fafc; padding: 1rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; }
+        th { background: #f8fafc; padding: 1rem; border-bottom: 2px solid #e2e8f0; text-align: left; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; color: #64748b; }
         td { padding: 1rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
         
         .prose p { 
@@ -81,6 +81,29 @@
             margin-bottom: 1rem;
             font-weight: 800;
             color: var(--tech-slate);
+        }
+
+        .pfd-step {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 2rem;
+            border-left: 2px dashed #e2e8f0;
+        }
+        .pfd-step:last-child { border-left: none; }
+        .pfd-number {
+            position: absolute;
+            left: -1rem;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.75rem;
         }
         
         ::-webkit-scrollbar { width: 6px; }
@@ -113,14 +136,17 @@
                 <button onclick="navigate('engineering')" id="btn-engineering" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
                     <span class="text-lg">🛠️</span> 2. Engineering & Design
                 </button>
+                <button onclick="navigate('pfd')" id="btn-pfd" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
+                    <span class="text-lg">📋</span> 3. Process Flow (PFD)
+                </button>
                 <button onclick="navigate('simulation')" id="btn-simulation" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
-                    <span class="text-lg">🔄</span> 3. Digital Twin Simulation
+                    <span class="text-lg">🔄</span> 4. Digital Twin Simulation
                 </button>
                 <button onclick="navigate('vsm')" id="btn-vsm" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
-                    <span class="text-lg">📈</span> 4. Value Stream Analysis
+                    <span class="text-lg">📈</span> 5. Value Stream Analysis
                 </button>
                 <button onclick="navigate('pfmea')" id="btn-pfmea" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-slate-500 hover:bg-slate-50 transition-all text-left">
-                    <span class="text-lg">⚠️</span> 5. PFMEA Risk Log
+                    <span class="text-lg">⚠️</span> 6. PFMEA Risk Log
                 </button>
             </nav>
 
@@ -153,7 +179,7 @@
 
             <div class="p-6 lg:p-16">
                 
-                <!-- SECTION 1: CONTEXT -->
+                <!-- 1. STRATEGIC CONTEXT -->
                 <section id="context" class="space-y-12">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">1. The Injection Moulding Bottleneck</h3>
@@ -164,7 +190,7 @@
                     <div class="chart-container glass-card rounded-3xl p-8 shadow-inner"><canvas id="chart-fin"></canvas></div>
                 </section>
 
-                <!-- SECTION 2: ENGINEERING -->
+                <!-- 2. ENGINEERING & DESIGN -->
                 <section id="engineering" class="hide space-y-16">
                     <div class="max-w-4xl prose prose-slate">
                         <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">2. Engineering & Design Logs</h3>
@@ -197,7 +223,6 @@
                                     <img id="iter-img" src="V1.jpeg" class="w-full h-72 object-contain rounded-lg mb-4 bg-slate-50" onerror="this.src='https://placehold.co/400x500/0f172a/white?text=Verify+Filename+on+GitHub'">
                                     <p class="text-[9px] text-center font-bold text-slate-400 uppercase tracking-widest italic">Dissertation Evidence Log</p>
                                     
-                                    <!-- V4 Gallery Thumbnails -->
                                     <div id="v4-gallery" class="hide mt-4 flex gap-2 flex-wrap justify-center">
                                         <button onclick="switchV4Image(0)" id="v4-thumb-0" class="gallery-thumb active w-16 h-16 rounded-lg border-2 border-slate-200 overflow-hidden">
                                             <img src="V4%20upright.jpeg" class="w-full h-full object-cover">
@@ -217,7 +242,7 @@
                         </div>
                     </div>
 
-                    <!-- BRIDGING OPTIMIZATION ENGINE -->
+                    <!-- BRIDGING ENGINE -->
                     <div class="space-y-6 mt-20">
                         <h4 class="text-xl font-bold uppercase tracking-tight italic text-slate-400">Bridging Parameter Optimization</h4>
                         <div class="flex flex-wrap gap-2">
@@ -240,29 +265,79 @@
                     </div>
                 </section>
 
-                <!-- SECTION 3: SIMULATION -->
+                <!-- SECTION 3: PROCESS FLOW DIAGRAM -->
+                <section id="pfd" class="hide space-y-12">
+                    <div class="max-w-4xl prose prose-slate">
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">3. Process Flow Diagram (PFD)</h3>
+                        <p>To ensure a high-fidelity Digital Twin, I mapped out the physical movement of parts through the entire manufacturing loop. This PFD defines the sequence of operations from the initial CAD data to the final verified assembly in the Festo Lab.</p>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-10 bg-white shadow-sm">
+                        <div class="flex flex-col gap-0">
+                            <div class="pfd-step">
+                                <div class="pfd-number">01</div>
+                                <h5 class="font-bold text-slate-800">CAD Engineering & Validation</h5>
+                                <p class="text-xs text-slate-500">Design of top/bottom casings in Siemens NX, including snap-fit tolerances and bridging geometry.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">02</div>
+                                <h5 class="font-bold text-slate-800">Slicing & G-Code Generation</h5>
+                                <p class="text-xs text-slate-500">Arachne pathing applied. Bridging parameters set to WINNER (Test 4) values.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">03</div>
+                                <h5 class="font-bold text-slate-800">3D Printer Fleet Execution</h5>
+                                <p class="text-xs text-slate-500">Staggered batch printing (14h cycle). Fleet of 35 printers ensures a part every 6 minutes.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">04</div>
+                                <div class="inline-block bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] font-black uppercase mb-1">Critical Link</div>
+                                <h5 class="font-bold text-slate-800">FIFO Buffer Entry</h5>
+                                <p class="text-xs text-slate-500">Manual post-processing (support removal) and entry into the 158-unit queue.</p>
+                            </div>
+                            <div class="pfd-step">
+                                <div class="pfd-number">05</div>
+                                <h5 class="font-bold text-slate-800">Festo Lab Automation Loop</h5>
+                                <p class="text-xs text-slate-500">Operator loading -> Press Station -> Oven Cure -> Measuring Station -> Drop.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: SIMULATION -->
                 <section id="simulation" class="hide space-y-12">
                     <div class="max-w-4xl prose prose-slate">
-                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">3. Digital Twin Simulation</h3>
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">4. Digital Twin Simulation</h3>
                         <p>Once I confirmed the fit of both the top and bottom parts, it was time to explore the feasibility of expanding this process by an industrial scale; 100,000 parts (50,000 full sets) a year. Using the <strong>Siemens Tecnomatix Plant Simulation</strong> software, I modeled how the Festo lab would interact with the 3D printers to investigate the process.</p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
-                            <img src="Birds%20eye%20view%20of%20Plant.jpg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Check+Birds+eye+view+of+Plant.jpg'">
-                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.1: Logical 2D Flow Map & Worker Routing</p>
+                            <img src="Birds%20eye%20view%20of%20Plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+Birds+eye+view+of+Plant.png'">
+                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 4.1: Logical 2D Flow Map & Worker Routing</p>
                         </div>
                         <div class="glass-card rounded-3xl overflow-hidden p-2 bg-white">
-                            <img src="3D%20view%20of%20plant.jpg" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Check+3D+view+of+plant.jpg'">
-                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 3.2: 3D Isometric Factory Layout</p>
+                            <img src="3D%20view%20of%20plant.png" class="w-full rounded-2xl" onerror="this.src='https://placehold.co/600x400/0f172a/white?text=Verify+3D+view+of+plant.png'">
+                            <p class="p-4 text-[10px] uppercase font-bold text-slate-400 tracking-widest">Fig 4.2: 3D Isometric Factory Layout</p>
                         </div>
                     </div>
 
-                    <!-- NEW SIMULATION RESULTS ANALYSIS -->
+                    <div class="space-y-8 pt-10">
+                        <h4 class="text-2xl font-black tracking-tight italic uppercase">Inventory Sawtooth Monitoring</h4>
+                        <div class="prose prose-slate max-w-4xl">
+                            <p>One of the most important parts of this digital twin was figuring out if the 3D printer fleet could actually keep up with the Festo line. I set up a "Sawtooth" monitoring chart to track our buffer levels. The reason it looks like a sawtooth is because of how differently these two worlds work.</p>
+                            <p>The printers work in big "Push" batches. Every 14 hours, a printer finishes 6 parts and they all get dumped into the buffer at once—that's the sharp vertical jump you see on the chart. But the Festo line is doing "Pull" manufacturing; it takes one part every 6 minutes like clockwork. That constant drain causes the slow, steady downward slope. My goal was to make sure that even at the very bottom of the "tooth," we never hit zero. If we hit zero, the Festo line "starves" and the whole factory stops, which would be a disaster for our 100,000 unit target.</p>
+                        </div>
+                        <div class="glass-card rounded-3xl p-10 flex flex-col gap-8 bg-white">
+                            <h4 class="font-black text-sm uppercase tracking-widest text-blue-600 italic">Live Buffer Inventory Log</h4>
+                            <div class="chart-container"><canvas id="chart-buffer"></canvas></div>
+                        </div>
+                    </div>
+
                     <div class="space-y-8 pt-10">
                         <h4 class="text-2xl font-black tracking-tight italic uppercase">Resource & Bottleneck Analysis</h4>
                         <div class="prose prose-slate max-w-4xl">
-                            <p>After running the simulation, I looked into the resource statistics to see how hard the equipment and staff were actually working. It was interesting to see that while the Oven Station and the Operator Station were the busiest parts of the loop, there's still a massive amount of "Waiting" time across the whole system. This suggests that the 6-minute takt time of the Festo line is actually quite relaxed compared to the speed the machines can handle.</p>
+                            <p>After running the simulation, I looked into the resource statistics to see how hard the equipment and staff were actually working. It was interesting to see that while the Oven Station and the Operator Station were the busiest parts of the loop, there's still a massive amount of "Waiting" time across the whole system.</p>
                         </div>
                         
                         <div class="grid lg:grid-cols-2 gap-8">
@@ -270,41 +345,26 @@
                                 <img src="Worker%20efficiency%20chart.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Worker+efficiency+chart.png'">
                                 <div class="mt-6 space-y-3">
                                     <h5 class="font-black text-xs uppercase text-blue-600 tracking-widest">Worker Statistics</h5>
-                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The data shows the worker is "Waiting" for about 80% of the time. Even with the broker managing the tasks, the human interaction is only needed for about 12% of the operational cycle. This confirms that the line is highly automated, but it might also mean I could give this worker more tasks, like managing the 3D printer fleet maintenance, without slowing down the Festo loop.</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The data shows the worker is "Waiting" for about 80% of the time. This confirms that the line is highly automated, but it might also mean I could give this worker more tasks, like managing the 3D printer fleet maintenance, without slowing down the operations.</p>
                                 </div>
                             </div>
                             <div class="glass-card rounded-3xl overflow-hidden p-6 bg-white">
                                 <img src="Bottleneck%20analysis.png" class="w-full rounded-xl border border-slate-100" onerror="this.src='https://placehold.co/600x400/slate/white?text=Bottleneck+analysis.png'">
                                 <div class="mt-6 space-y-3">
                                     <h5 class="font-black text-xs uppercase text-blue-600 tracking-widest">Station Utilization</h5>
-                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">Looking at the bar chart, the green "Working" portions are very low. The Oven Station is the most utilized at around 15%, followed by the Operator Station. The rest of the time, the machines are just waiting for the next part to arrive from the buffer. This proves that our buffer capacity of 158 units is more than enough to keep the line fed without any starving errors.</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed text-justify">The Oven Station is the most utilized at around 15%, followed by the Operator Station. This proves that our buffer capacity of 158 units is more than enough to keep the line fed without any starving errors.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="grid lg:grid-cols-2 gap-8 mt-12">
-                        <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm space-y-4">
-                            <h4 class="text-blue-600 font-bold uppercase text-xs tracking-widest">Bottom Case Logic (FIFO: 158)</h4>
-                            <p class="text-sm text-slate-600 leading-relaxed text-justify">Fleet Size: 23 Printers. Batch Size: 6 Parts. Recovery Lead Time: 14 hours. Consumption Rate (FESTO): 10 parts/hour. Safety Float: 20 units (2 hours of production). <strong>Total Buffer Capacity: 158 units.</strong></p>
-                        </div>
-                        <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm space-y-4">
-                            <h4 class="text-blue-600 font-bold uppercase text-xs tracking-widest">Top Case Logic (FIFO: 92)</h4>
-                            <p class="text-sm text-slate-600 leading-relaxed text-justify">Fleet Size: 12 Printers. Batch Size: 6 Parts. Recovery Lead Time: 73.8 minutes. Consumption Rate: 10 parts/hour. Safety Float: 20 units. <strong>Total Buffer Capacity: 92 units.</strong></p>
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-3xl p-10 flex flex-col gap-8">
-                        <h4 class="font-black text-sm uppercase tracking-widest text-blue-600 italic">Inventory Sawtooth Monitoring</h4>
-                        <div class="chart-container"><canvas id="chart-buffer"></canvas></div>
-                    </div>
                 </section>
 
-                <!-- SECTION 4: VSM -->
+                <!-- SECTION 5: VSM -->
                 <section id="vsm" class="hide space-y-12">
                     <div class="max-w-4xl prose prose-slate">
-                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">4. Value Stream Analysis</h3>
-                        <p>To reconcile the 14-hour batch processing of additive manufacturing with the 6-minute tactical demand of the FESTO automation line, a staggered value stream was mapped using a FIFO queue architecture.</p>
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">5. Value Stream Analysis</h3>
+                        <p>To reconcile the 14-hour batch processing of additive manufacturing with the 6-minute tactical demand of the FESTO automation line, I had to design a "Leaned-out" value stream. The core of this strategy was the FIFO queue architecture.</p>
+                        <p>The 14-hour recovery lead time is the main bottleneck. By using a fleet of 23 printers for the bottom cases, we create a staggered arrival of parts. Even if one printer fails, the buffer of 158 units acts as a safety float, preventing the Festo line from shutting down. This allows us to transition from "Push" manufacturing at the printers to "Pull" manufacturing at the automation line.</p>
                     </div>
                     <div class="flex flex-wrap gap-4">
                         <div class="vsm-node glass-card"><p class="font-bold text-xs text-blue-600 uppercase mb-2">AM Batch</p><p class="font-mono text-2xl font-bold">14.0h</p></div>
@@ -313,19 +373,39 @@
                     </div>
                 </section>
 
-                <!-- SECTION 5: PFMEA -->
+                <!-- SECTION 6: PFMEA -->
                 <section id="pfmea" class="hide space-y-12">
                     <div class="max-w-4xl prose prose-slate">
-                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">5. Risk Management (PFMEA)</h3>
+                        <h3 class="text-3xl font-extrabold mb-6 tracking-tight italic border-b-2 border-blue-100 pb-2 uppercase">6. Risk Management (PFMEA)</h3>
+                        <p>Risk is inherent in any Industry 4.0 system. Below is my Process Failure Mode and Effects Analysis (PFMEA). I focused on the transition between the physical world (the printers) and the digital loop (the IoT monitoring).</p>
                     </div>
                     <div class="glass-card rounded-3xl overflow-hidden shadow-sm">
                         <table class="min-w-full">
                             <thead>
-                                <tr><th>Process</th><th>Failure Mode</th><th class="text-center">RPN</th><th>Mitigation Strategy</th></tr>
+                                <tr><th>Process</th><th>Failure Mode</th><th class="text-center">Severity</th><th class="text-center">RPN</th><th>Mitigation Strategy</th></tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
-                                <tr><td class="font-bold">Printing</td><td class="italic text-slate-500">Spaghetti failure (adhesion)</td><td class="text-center font-bold">64</td><td>FIFO Buffer Safety Float (2h).</td></tr>
-                                <tr><td class="font-bold">IoT Loop</td><td class="italic text-slate-500">Sensor dropout / Latency</td><td class="text-center font-bold text-red-600">105</td><td>Exit Control Standby Trigger via SimTalk script.</td></tr>
+                                <tr>
+                                    <td class="font-bold p-4">AM Production</td>
+                                    <td class="italic text-slate-500 p-4">First-layer adhesion failure (Spaghetti)</td>
+                                    <td class="text-center">8</td>
+                                    <td class="text-center font-bold">64</td>
+                                    <td class="p-4 text-xs">Redundant printer fleet; FIFO buffer holds 2h safety float to allow restart.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold p-4">Digital Sync</td>
+                                    <td class="italic text-slate-500 p-4">IoT Sensor dropout / Latency</td>
+                                    <td class="text-center">7</td>
+                                    <td class="text-center font-bold text-red-600">105</td>
+                                    <td class="p-4 text-xs">Exit Control "Standby Trigger" via SimTalk script; auto-shutdown of conveyor if data heartbeat is lost.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold p-4">Assembly</td>
+                                    <td class="italic text-slate-500 p-4">Snap-fit fracture during press</td>
+                                    <td class="text-center">9</td>
+                                    <td class="text-center font-bold">45</td>
+                                    <td class="p-4 text-xs">Arachne pathing validation in Slicer; 60% Gyroid infill for structural reinforcement.</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
